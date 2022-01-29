@@ -2,7 +2,7 @@
 
 #include "../../../MinNetCommon.h"
 #include "IOBuf.h"
-#include "../../Socket/Socket.h"
+#include "../Socket/Socket.h"
 
 MINNET_BEGINE
 

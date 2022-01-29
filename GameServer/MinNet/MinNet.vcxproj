@@ -169,11 +169,12 @@
     <ClInclude Include="NetWork\IOCP\IOUnit\IOSend.h" />
     <ClInclude Include="NetWork\IOCP\IOUnit\IOUnit.h" />
     <ClInclude Include="NetWork\IOCP\iocpServer.h" />
+    <ClInclude Include="NetWork\IOCP\Socket\Socket.h" />
+    <ClInclude Include="NetWork\IOCP\Socket\SocketManager.h" />
     <ClInclude Include="NetWork\IOCP\Worker\iocpWorker_Afx.h" />
     <ClInclude Include="NetWork\IOCP\Worker\iocpWorker_Begin.h" />
     <ClInclude Include="NetWork\IOCP\Worker\iocpWorker_Create.h" />
     <ClInclude Include="NetWork\IOCP\Worker\iocpWorker_std.h" />
-    <ClInclude Include="NetWork\Socket\Socket.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Service\Service.h" />
     <ClInclude Include="Worker\Worker.h" />
@@ -184,11 +185,12 @@
     <ClCompile Include="NetWork\IOCP\iocpClient.cpp" />
     <ClCompile Include="NetWork\IOCP\iocpServer.cpp" />
     <ClCompile Include="NetWork\IOCP\IOUnit\IOManager.cpp" />
+    <ClCompile Include="NetWork\IOCP\Socket\Socket.cpp" />
+    <ClCompile Include="NetWork\IOCP\Socket\SocketManager.cpp" />
     <ClCompile Include="NetWork\IOCP\Worker\iocpWorker_Afx.cpp" />
     <ClCompile Include="NetWork\IOCP\Worker\iocpWorker_Begin.cpp" />
     <ClCompile Include="NetWork\IOCP\Worker\iocpWorker_Create.cpp" />
     <ClCompile Include="NetWork\IOCP\Worker\iocpWorker_std.cpp" />
-    <ClCompile Include="NetWork\Socket\Socket.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

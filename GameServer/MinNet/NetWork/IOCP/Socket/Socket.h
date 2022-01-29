@@ -1,13 +1,13 @@
 ﻿#pragma once
 
-#include "../../MinNetCommon.h"
+#include "../../../MinNetCommon.h"
 
 MINNET_BEGINE
 
 class CSocket
 {
 public:
-	CSocket();
+	CSocket(int InIndex);
 	~CSocket();
 
 public:
@@ -16,6 +16,7 @@ public:
 
 private:
 	SOCKET mSock;
+	int mIndex;
 };
 
 MINNET_END

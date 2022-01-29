@@ -3,7 +3,6 @@
 #include "../../MinNetCommon.h"
 #include "Worker/iocpWorker_std.h"
 
-
 MINNET_BEGINE
 
 typedef CiocpWorker_std CiocpWorker;
@@ -20,11 +19,12 @@ protected:
 	virtual void _WorkerFunc();
 
 private:
+	bool _WsaStart();
 	bool _Bind();
 	bool _Listen();
 	bool _Handle();
-	
 
+	void _CreateSocket();
 
 private:
 	HANDLE mIOCP;

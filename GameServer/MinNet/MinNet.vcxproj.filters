@@ -7,9 +7,6 @@
     <Filter Include="NetWork">
       <UniqueIdentifier>{88372fc7-ab72-4985-ba99-245a10fef13c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AMinNetLib">
-      <UniqueIdentifier>{10a122a0-7cc4-4571-be15-7214c2fe9864}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Buffer">
       <UniqueIdentifier>{34a65ad2-966f-41bd-950f-c8f710262506}</UniqueIdentifier>
     </Filter>
@@ -24,9 +21,6 @@
     </Filter>
     <Filter Include="NetWork\IOCP\Worker">
       <UniqueIdentifier>{5cbc3270-225e-4ba8-a319-65bd68d7a0b5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="NetWork\Socket">
-      <UniqueIdentifier>{d15bad35-321e-4056-a0af-0bbffe8d1f85}</UniqueIdentifier>
     </Filter>
     <Filter Include="NetWork\IOCP\IOUnit">
       <UniqueIdentifier>{0874c103-1aee-4a4a-b0d1-a3a958c8d50b}</UniqueIdentifier>
@@ -46,19 +40,25 @@
     <Filter Include="NetWork\IOCP\IOUnit\IO">
       <UniqueIdentifier>{7099e833-7e6a-41e6-b862-3b6035d5608b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="NetWork\IOCP\Socket">
+      <UniqueIdentifier>{9abcc0ce-8b19-48b7-83d8-1d5a566d30bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MinNetLib">
+      <UniqueIdentifier>{10a122a0-7cc4-4571-be15-7214c2fe9864}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Worker\Worker.h">
       <Filter>Worker</Filter>
     </ClInclude>
     <ClInclude Include="framework.h">
-      <Filter>AMinNetLib</Filter>
+      <Filter>MinNetLib</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
-      <Filter>AMinNetLib</Filter>
+      <Filter>MinNetLib</Filter>
     </ClInclude>
     <ClInclude Include="MinNetCommon.h">
-      <Filter>AMinNetLib</Filter>
+      <Filter>MinNetLib</Filter>
     </ClInclude>
     <ClInclude Include="Buffer\FixedBuffer.h">
       <Filter>Buffer</Filter>
@@ -71,9 +71,6 @@
     </ClInclude>
     <ClInclude Include="Worker\WorkerFrame.h">
       <Filter>Worker</Filter>
-    </ClInclude>
-    <ClInclude Include="NetWork\Socket\Socket.h">
-      <Filter>NetWork\Socket</Filter>
     </ClInclude>
     <ClInclude Include="NetWork\IOCP\IOUnit\IOBuf.h">
       <Filter>NetWork\IOCP\IOUnit</Filter>
@@ -117,22 +114,25 @@
     <ClInclude Include="Buffer\BufferManager.h">
       <Filter>Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="NetWork\IOCP\Socket\Socket.h">
+      <Filter>NetWork\IOCP\Socket</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\IOCP\Socket\SocketManager.h">
+      <Filter>NetWork\IOCP\Socket</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Worker\Worker.cpp">
       <Filter>Worker</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
-      <Filter>AMinNetLib</Filter>
+      <Filter>MinNetLib</Filter>
     </ClCompile>
     <ClCompile Include="Buffer\FixedBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Service\Service.cpp">
       <Filter>Service</Filter>
-    </ClCompile>
-    <ClCompile Include="NetWork\Socket\Socket.cpp">
-      <Filter>NetWork\Socket</Filter>
     </ClCompile>
     <ClCompile Include="NetWork\IOCP\Worker\iocpWorker_std.cpp">
       <Filter>NetWork\IOCP\Worker\std::thread</Filter>
@@ -154,6 +154,12 @@
     </ClCompile>
     <ClCompile Include="NetWork\IOCP\IOUnit\IOManager.cpp">
       <Filter>NetWork\IOCP\IOUnit</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\IOCP\Socket\Socket.cpp">
+      <Filter>NetWork\IOCP\Socket</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\IOCP\Socket\SocketManager.cpp">
+      <Filter>NetWork\IOCP\Socket</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

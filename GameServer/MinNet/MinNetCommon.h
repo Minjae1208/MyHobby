@@ -4,6 +4,7 @@
 #include "Windows.h"
 
 #include <thread>
+#include <queue>
 #include <vector>
 #include <list>
 
