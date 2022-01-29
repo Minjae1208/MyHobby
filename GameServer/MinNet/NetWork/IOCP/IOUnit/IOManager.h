@@ -11,7 +11,7 @@ MINNET_BEGINE
 
 class CIOManager
 {
-	static void InitIO()
+	//static void InitIO();
 };
 
 MINNET_END

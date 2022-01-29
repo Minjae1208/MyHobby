@@ -18,9 +18,9 @@ public:
 
 	}
 	
-	static void InitObjectBuf(size_t InSize, int InBufCount, int InNextBufCount)
+	static void InitObjectManager(size_t InSize, int InBufCount, int InNextBufCount)
 	{
-		mObjectBuf->Init(BUF_DEALLOC_TYPE::NON_CHECK, InSize, InBufCount, InNextBufCount);
+		mBuffer->Init(BUF_DEALLOC_TYPE::NON_CHECK, InSize, InBufCount, InNextBufCount);
 
 		isAlloc = true;
 	}
@@ -31,7 +31,7 @@ public:
 
 		if (true == isAlloc)
 		{
-			ptr = mObjectBuf.Pop();
+			ptr = mBuffer.Pop();
 		}
 
 		return ptr;
@@ -41,16 +41,16 @@ public:
 	{
 		if (true == isAlloc)
 		{
-			mObjectBuf.Push(InObject);
+			mBuffer.Push((char*)InObject);
 		}
 	}
 
 private:
-	static CFixedBuffer mObjectBuf;
+	static CFixedBuffer mBuffer;
 	static bool isAlloc;
 };
 
-template<typename T> CFixedBuffer CObjectManager<T>::mObjectBuf;
+template<typename T> CFixedBuffer CObjectManager<T>::mBuffer;
 template<typename T> bool CObjectManager<T>::isAlloc = false;
 
 MINNET_END

@@ -11,7 +11,8 @@ public:
 	~CFixedBuffer();
 
 public:
-	void Init(BUF_DEALLOC_TYPE InType, size_t InSize, int InBufCount, int InBufNextCount);
+	void Init(BUF_DEALLOC_TYPE InType, ULONG InSize, int InBufCount, int InBufNextCount);
+	ULONG GetFixedSize();
 
 	char* Pop();
 	void Push(char* InBuf);
@@ -25,7 +26,7 @@ private:
 	CRITICAL_SECTION mBufCS;
 	BUF_DEALLOC_TYPE mType;
 
-	size_t mBufSize;
+	ULONG mBufSize;
 	int mNextBufCount;
 	int mBufMaxCount;
 	int mBufIndex; 

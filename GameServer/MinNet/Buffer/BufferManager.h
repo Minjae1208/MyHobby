@@ -14,17 +14,29 @@ public:
 
 	static void InitBufferManager(ULONG InSize, int InBufCount, int InNextBufCount)
 	{
-		mBuf->Init(BUF_DEALLOC_TYPE::NON_CHECK, InSize, InBufCount, InNextBufCount);
+		mBuffer->Init(BUF_DEALLOC_TYPE::NON_CHECK, InSize, InBufCount, InNextBufCount);
 
 		isAlloc = true;
 	}
 	
+	static ULONG GetBufferSize() 
+	{ 
+		ULONG size = 0;
+
+		if (true == isAlloc)
+		{
+			size = mBuffer.GetFixedSize();
+		}
+
+		return size;
+	}
+
 	static void* PopMemory()
 	{
 		char* ptr = nullptr;
 		if (true == isAlloc)
 		{
-			ptr = mBuf.Pop();
+			ptr = mBuffer.Pop();
 		}
 
 		return ptr;
@@ -34,17 +46,17 @@ public:
 	{
 		if (true == isAlloc)
 		{
-			mBuf.Push(InMem);
+			mBuffer.Push(InMem);
 		}
 	}
 
 
 private:
-	static CFixedBuffer mBuf;
+	static CFixedBuffer mBuffer;
 	static bool isAlloc;
 };
 
-template<typename T> CFixedBuffer CBufferManager<T>::mBuf;
+template<typename T> CFixedBuffer CBufferManager<T>::mBuffer;
 template<typename T> bool CBufferManager<T>::isAlloc = false;
 
 

@@ -10,11 +10,10 @@ public:
 	{
 
 	}
-	~CIORecv();
+	virtual ~CIORecv()
+	{
 
-
-private:
-	CIORecvBuffer* mBuf;
+	}
 };
 
 MINNET_END

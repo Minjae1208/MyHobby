@@ -10,11 +10,10 @@ public:
 	{
 
 	}
-	~CIOClose();
+	virtual ~CIOClose()
+	{
 
-
-private:
-	CIOCloseBuffer* mBuf;
+	}
 };
 
 MINNET_END

@@ -8,8 +8,13 @@ MINNET_BEGINE
 class CIOBufferInterface : public CObjectManager<CIOBufferInterface>
 {
 public:
-	CIOBufferInterface();
-	~CIOBufferInterface();
+	CIOBufferInterface() {}
+	virtual ~CIOBufferInterface() {}
+
+protected:
+	char* mBuf;
+	WSABUF mWsaBuf;
+	ULONG mBufSize;
 };
 
 class CIOAccpetBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBufferInterface
@@ -17,12 +22,14 @@ class CIOAccpetBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBuffer
 public:
 	CIOAccpetBuffer()
 	{
-		Buf = (char*)PopMemory();
+		mBufSize = GetBufferSize();
+		mBuf = (char*)PopMemory();
 	}
-	~CIOAccpetBuffer();
+	virtual ~CIOAccpetBuffer()
+	{
+		PushMemory(mBuf);
+	}
 
-public:
-	char* Buf;
 };
 
 class CIORecvBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBufferInterface
@@ -30,12 +37,17 @@ class CIORecvBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBufferIn
 public:
 	CIORecvBuffer()
 	{
-		Buf = (char*)PopMemory();
+		mBufSize = GetBufferSize();
+		mBuf = (char*)PopMemory();
 	}
-	~CIORecvBuffer();
+	virtual ~CIORecvBuffer()
+	{
 
-public:
-	char* Buf;
+	}
+
+	inline char* GetMemory() { return mBuf; }
+	inline void ReturnMemory() { PushMemory(mBuf); }
+	inline LPWSABUF GetWsaBufPtr() { return &mWsaBuf; }
 };
 
 
@@ -45,12 +57,22 @@ class CIOSendBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBufferIn
 public:
 	CIOSendBuffer()
 	{
-		Buf = (char*)PopMemory();
+		mBufSize = GetBufferSize();
+		mBuf = (char*)PopMemory();
 	}
-	~CIOSendBuffer();
+	virtual ~CIOSendBuffer()
+	{
 
-public:
-	char* Buf;
+	}
+
+	inline char* GetMemory() { return mBuf; }
+	inline LPWSABUF GetWsaBufPtr() { return &mWsaBuf; }
+
+	void SetBuffer(void* InData, ULONG InSize)
+	{
+
+	}
+
 };
 
 MINNET_END

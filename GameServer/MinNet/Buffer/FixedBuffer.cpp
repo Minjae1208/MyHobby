@@ -25,13 +25,18 @@ CFixedBuffer::~CFixedBuffer()
 	@param InBufCount : 초기화할 Buffer의 개수
 	@param InBufNextCount : Alloc을 더 해야할 경우 생성할 Buffer의 개수	
 */
-void CFixedBuffer::Init(BUF_DEALLOC_TYPE InType, size_t InSize, int InBufCount, int InBufNextCount)
+void CFixedBuffer::Init(BUF_DEALLOC_TYPE InType, ULONG InSize, int InBufCount, int InBufNextCount)
 {
 	mType = InType;
 	mBufSize = InSize;
 	mNextBufCount = InBufNextCount;
 
 	_Alloc(InBufCount);
+}
+
+ULONG CFixedBuffer::GetFixedSize()
+{
+	return mBufSize;
 }
 
 /**

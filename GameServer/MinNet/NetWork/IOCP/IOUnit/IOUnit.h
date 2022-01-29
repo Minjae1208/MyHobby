@@ -16,13 +16,13 @@ public:
 		switch (mType)
 		{
 		case IO_TYPE::ACEEPT:
-			mBuf = new CIOAccpetBuffer();
+			mBufferInterface = new CIOAccpetBuffer();
 			break;
 		case IO_TYPE::RECV:
-			mBuf = new CIORecvBuffer();
+			mBufferInterface = new CIORecvBuffer();
 			break;
 		case IO_TYPE::SEND:
-			mBuf = new CIOAccpetBuffer();
+			mBufferInterface = new CIOAccpetBuffer();
 			break;
 		case IO_TYPE::CLOSE:
 			break;
@@ -30,12 +30,11 @@ public:
 
 		InitOverlapped();
 	}
-	~CIOUnit() {}
+	virtual ~CIOUnit() {}
 
 public:
-	inline LPWSABUF GetWsaBufPtr() { return &mWsaBuf; }
 	inline CSocket* GetSocket() { return mSock; }
-	inline CIOBufferInterface* GetIOBuffer() { return mBuf; }
+	inline CIOBufferInterface* GetIOBuffer() { return mBufferInterface; }
 
 	void SetSocket(CSocket* InSock)
 	{
@@ -45,14 +44,13 @@ public:
 private:
 	void InitOverlapped()
 	{
-		//ZeroMemory((OVERLAPPED)this, sizeof(OVERLAPPED));
+		ZeroMemory((OVERLAPPED*)this, sizeof(OVERLAPPED));
 	}
 
 private:
 	IO_TYPE mType;
 	CSocket* mSock;
-	WSABUF mWsaBuf;
-	CIOBufferInterface* mBuf;
+	CIOBufferInterface* mBufferInterface;
 };
 
 MINNET_END

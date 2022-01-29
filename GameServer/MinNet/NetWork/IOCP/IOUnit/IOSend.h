@@ -11,11 +11,10 @@ public:
 	{
 
 	}
-	~CIOSend();
+	virtual ~CIOSend()
+	{
 
-
-private:
-	CIOSendBuffer* mBuf;
+	}
 };
 
 MINNET_END

@@ -1,2 +1,25 @@
 
 GameServer/MinNet/MinNet.vcxproj.user
+GameServer/.vs/GameServer/v15/.suo
+GameServer/.vs/GameServer/v15/Browse.VC.db
+GameServer/.vs/GameServer/v15/Browse.VC.opendb
+GameServer/.vs/GameServer/v15/ipch/AutoPCH/b04553ee313b36ac/IOMANAGER.ipch
+GameServer/.vs/GameServer/v15/ipch/AutoPCH/b210f7a38d3e881c/FIXEDBUFFER.ipch
+GameServer/_Intermediate/MinNet/FixedBuffer.obj
+GameServer/_Intermediate/MinNet/iocpClient.obj
+GameServer/_Intermediate/MinNet/iocpServer.obj
+GameServer/_Intermediate/MinNet/iocpWorker_Afx.obj
+*.obj
+GameServer/_Intermediate/MinNet/MinNet.idb
+GameServer/_Intermediate/MinNet/MinNet.log
+GameServer/_Intermediate/MinNet/MinNet.pch
+GameServer/_Intermediate/MinNet/MinNet.pdb
+GameServer/_Intermediate/MinNet/MinNet.tlog/CL.command.1.tlog
+GameServer/_Intermediate/MinNet/MinNet.tlog/CL.read.1.tlog
+GameServer/_Intermediate/MinNet/MinNet.tlog/CL.write.1.tlog
+GameServer/_Intermediate/MinNet/MinNet.tlog/Lib-link.read.1.tlog
+GameServer/_Intermediate/MinNet/MinNet.tlog/Lib-link.write.1.tlog
+GameServer/_Intermediate/MinNet/MinNet.tlog/Lib.command.1.tlog
+GameServer/_Intermediate/MinNet/MinNet.tlog/MinNet.lastbuildstate
+GameServer/_Lib/MinNet/MinNet.lib
+GameServer/_Lib/MinNet/MinNet.pdb
