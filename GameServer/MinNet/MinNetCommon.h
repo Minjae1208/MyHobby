@@ -2,13 +2,16 @@
 
 #include "Winsock2.h"
 #include "mswsock.h"
-#include "Windows.h"
 #include "ws2tcpip.h"
+
+#include "Windows.h"
+#include "winsvc.h"
 
 #include <thread>
 #include <queue>
 #include <vector>
 #include <list>
+#include <string>
 
 #define MINNET_BEGINE namespace MinNet{
 #define MINNET_END }

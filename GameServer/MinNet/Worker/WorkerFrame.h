@@ -9,8 +9,7 @@ public:
 	CWorkerFrame() {}
 	virtual ~CWorkerFrame() {}
 
-	
-
+	virtual void proc() {}
 };
 
 MINNET_END

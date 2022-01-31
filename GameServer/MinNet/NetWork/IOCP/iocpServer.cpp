@@ -41,6 +41,9 @@ bool CiocpServer::InitNetWork(int InPort, int InWorkerCount, int InSocketCount)
 void CiocpServer::_WorkerFunc()
 {
 
+	// GQCS FUNCTION
+
+
 }
 
 bool CiocpServer::_WsaStart()

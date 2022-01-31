@@ -5,7 +5,7 @@
 MINNET_BEGINE
 
 /**
-	@brief std::thread를 이용한 iocp Worker Thread CLass
+	@brief std::thread를 이용한 iocp Worker Thread Class
 */
 class CiocpWorker_std
 {

@@ -9,6 +9,10 @@ public:
 	CWorker();
 	virtual ~CWorker();
 
+	bool InitWorker();
+	
+private:
+	HANDLE mEvent;
 
 };
 
