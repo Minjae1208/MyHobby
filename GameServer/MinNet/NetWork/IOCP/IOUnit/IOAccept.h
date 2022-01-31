@@ -4,14 +4,14 @@
 
 MINNET_BEGINE
 
-class CIOAccpet : public CIOUnit, public CObjectManager<CIOAccpet>
+class CIOAccept : public CIOUnit, public CObjectManager<CIOAccept>
 {
 public:
-	CIOAccpet() : CIOUnit(IO_TYPE::ACEEPT)
+	CIOAccept(CSocket* InSock) : CIOUnit(IO_TYPE::ACEEPT, InSock)
 	{
 		
 	}
-	virtual ~CIOAccpet()
+	virtual ~CIOAccept()
 	{
 
 	}

@@ -6,7 +6,7 @@ MINNET_BEGINE
 class CIOClose : public CIOUnit, public CObjectManager<CIOClose>
 {
 public:
-	CIOClose() : CIOUnit(IO_TYPE::CLOSE)
+	CIOClose(CSocket* InSock) : CIOUnit(IO_TYPE::CLOSE, InSock)
 	{
 
 	}

@@ -17,22 +17,25 @@ protected:
 	ULONG mBufSize;
 };
 
-class CIOAccpetBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBufferInterface
+class CIOAcceptBuffer : public CBufferManager<CIOAcceptBuffer>, public CIOBufferInterface
 {
 public:
-	CIOAccpetBuffer()
+	CIOAcceptBuffer()
 	{
 		mBufSize = GetBufferSize();
 		mBuf = (char*)PopMemory();
 	}
-	virtual ~CIOAccpetBuffer()
+	virtual ~CIOAcceptBuffer()
 	{
 		PushMemory(mBuf);
 	}
 
+	inline char* GetMemory() { return mBuf; }
+	inline void ReturnMemory() { PushMemory(mBuf); }
+
 };
 
-class CIORecvBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBufferInterface
+class CIORecvBuffer : public CBufferManager<CIORecvBuffer>, public CIOBufferInterface
 {
 public:
 	CIORecvBuffer()
@@ -52,7 +55,7 @@ public:
 
 
 // Send는 약간 좀 다름
-class CIOSendBuffer : public CBufferManager<CIOAccpetBuffer>, public CIOBufferInterface
+class CIOSendBuffer : public CBufferManager<CIOSendBuffer>, public CIOBufferInterface
 {
 public:
 	CIOSendBuffer()
@@ -73,6 +76,13 @@ public:
 
 	}
 
+};
+
+class CIOCloseBuffer : public CIOBufferInterface
+{
+public:
+	CIOCloseBuffer() {}
+	virtual ~CIOCloseBuffer() {}
 };
 
 MINNET_END

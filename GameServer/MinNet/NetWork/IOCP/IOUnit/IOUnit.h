@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../../../MinNetCommon.h"
-#include "IOBuf.h"
+#include "IOBuffer.h"
 #include "../Socket/Socket.h"
 
 MINNET_BEGINE
@@ -9,22 +9,24 @@ MINNET_BEGINE
 class CIOUnit : public OVERLAPPED
 {
 public:
-	CIOUnit(IO_TYPE InType)
+	CIOUnit(IO_TYPE InType, CSocket* InSock)
 	{
+		mSock = InSock;
 		mType = InType;
-
+		
 		switch (mType)
 		{
 		case IO_TYPE::ACEEPT:
-			mBufferInterface = new CIOAccpetBuffer();
+			mBufferInterface = new CIOAcceptBuffer();
 			break;
 		case IO_TYPE::RECV:
 			mBufferInterface = new CIORecvBuffer();
 			break;
 		case IO_TYPE::SEND:
-			mBufferInterface = new CIOAccpetBuffer();
+			mBufferInterface = new CIOSendBuffer();
 			break;
 		case IO_TYPE::CLOSE:
+			mBufferInterface = new CIOCloseBuffer();
 			break;
 		}
 
@@ -34,12 +36,8 @@ public:
 
 public:
 	inline CSocket* GetSocket() { return mSock; }
+	inline LPOVERLAPPED GetOverlappedPtr() { return (LPOVERLAPPED)this; }
 	inline CIOBufferInterface* GetIOBuffer() { return mBufferInterface; }
-
-	void SetSocket(CSocket* InSock)
-	{
-		mSock = InSock;
-	}
 
 private:
 	void InitOverlapped()

@@ -1,5 +1,8 @@
 ﻿#pragma once
 
+#pragma comment(lib,"ws2_32.lib")
+#pragma comment(lib,"mswsock.lib")
+
 #include "../../MinNetCommon.h"
 #include "Worker/iocpWorker_std.h"
 
@@ -14,18 +17,18 @@ public:
 	virtual ~CiocpServer();
 
 	bool InitNetWork(int InPort, int InWorkerCount, int InSocketCount);
-
+	
 protected:
 	virtual void _WorkerFunc();
 
 private:
 	bool _WsaStart();
-	bool _Bind();
+	bool _Bind(int InPort);
 	bool _Listen();
 	bool _Handle();
 
-	void _CreateSocket();
-
+	void _CreateSocket(int InCount);
+	void _AcceptExSocket();
 private:
 	HANDLE mIOCP;
 	// listen Socket

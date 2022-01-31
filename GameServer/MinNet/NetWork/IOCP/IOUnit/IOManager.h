@@ -2,16 +2,23 @@
 
 #include "../../../MinNetCommon.h"
 
-#include "IOAccept.h"
-#include "IORecv.h"
-#include "IOSend.h"
-#include "IOClose.h"
-
 MINNET_BEGINE
 
+/**
+	@brief Memory Constructor & Destructor
+*/
 class CIOManager
 {
-	//static void InitIO();
+public:
+	CIOManager() {}
+	~CIOManager() {}
+
+
+	static void Constructor();
+	static void Destructor();
+	
+private:
+
 };
 
 MINNET_END

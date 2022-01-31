@@ -6,7 +6,7 @@ MINNET_BEGINE
 class CIORecv : public CIOUnit, public CObjectManager<CIORecv>
 {
 public:
-	CIORecv() : CIOUnit(IO_TYPE::RECV)
+	CIORecv(CSocket* InSock) : CIOUnit(IO_TYPE::RECV, InSock)
 	{
 
 	}

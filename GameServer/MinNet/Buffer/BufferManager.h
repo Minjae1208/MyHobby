@@ -12,9 +12,16 @@ public:
 	CBufferManager();
 	~CBufferManager();
 
+
+	/**
+		@brief Buffer Manager를 초기화해주는 함수
+		@param InSize : Buffer를 쪼갤 사이즈
+		@param InBufCount : 초기화 할 개수
+		@param InNextBufCount : 추가 Alloc을 할때 개수
+	*/
 	static void InitBufferManager(ULONG InSize, int InBufCount, int InNextBufCount)
 	{
-		mBuffer->Init(BUF_DEALLOC_TYPE::NON_CHECK, InSize, InBufCount, InNextBufCount);
+		mBuffer.Init(BUF_DEALLOC_TYPE::NON_CHECK, InSize, InBufCount, InNextBufCount);
 
 		isAlloc = true;
 	}
@@ -48,6 +55,11 @@ public:
 		{
 			mBuffer.Push(InMem);
 		}
+	}
+
+	static void ClearBufferManager()
+	{
+
 	}
 
 

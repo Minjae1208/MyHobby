@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Winsock2.h"
+#include "mswsock.h"
 #include "Windows.h"
+#include "ws2tcpip.h"
 
 #include <thread>
 #include <queue>

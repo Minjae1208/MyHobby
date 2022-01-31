@@ -17,14 +17,23 @@ public:
 	{
 
 	}
-	
-	static void InitObjectManager(size_t InSize, int InBufCount, int InNextBufCount)
+
+	/**
+		@brief Object Manager를 초기화해주는 함수
+		@param InBufCount : 초기화 할 개수
+		@param InNextBufCount : 추가 Alloc을 할때 개수
+	*/
+	static void InitObjectManager(int InBufCount, int InNextBufCount)
 	{
-		mBuffer->Init(BUF_DEALLOC_TYPE::NON_CHECK, InSize, InBufCount, InNextBufCount);
+		mBuffer.Init(BUF_DEALLOC_TYPE::NON_CHECK, sizeof(T), InBufCount, InNextBufCount);
 
 		isAlloc = true;
 	}
 
+
+	/**
+		@brief operator new
+	*/
 	static void* operator new(size_t InSize)
 	{
 		char* ptr = nullptr;
@@ -37,12 +46,23 @@ public:
 		return ptr;
 	}
 
+	/**
+		@brief operator delete
+	*/
 	static void operator delete(void* InObject)
 	{
 		if (true == isAlloc)
 		{
 			mBuffer.Push((char*)InObject);
 		}
+	}
+
+	/**
+		@brief Object Manager 사용 종료
+	*/
+	static void ClearObjectManager()
+	{
+
 	}
 
 private:

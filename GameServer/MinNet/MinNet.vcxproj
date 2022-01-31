@@ -162,7 +162,7 @@
     <ClInclude Include="MinNetCommon.h" />
     <ClInclude Include="NetWork\IOCP\iocpClient.h" />
     <ClInclude Include="NetWork\IOCP\IOUnit\IOAccept.h" />
-    <ClInclude Include="NetWork\IOCP\IOUnit\IOBuf.h" />
+    <ClInclude Include="NetWork\IOCP\IOUnit\IOBuffer.h" />
     <ClInclude Include="NetWork\IOCP\IOUnit\IOClose.h" />
     <ClInclude Include="NetWork\IOCP\IOUnit\IOManager.h" />
     <ClInclude Include="NetWork\IOCP\IOUnit\IORecv.h" />
