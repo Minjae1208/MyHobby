@@ -2,6 +2,7 @@
 GameServer/MinNet/MinNet.vcxproj.user
 GameServer/.vs/
 GameServer/_Intermediate/
-GameServer/_Intermediate/
+GameServer/_Bin/
 GameServer/_Lib/
 *.obj
+*.user

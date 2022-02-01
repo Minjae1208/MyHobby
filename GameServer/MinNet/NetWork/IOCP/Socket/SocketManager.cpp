@@ -11,11 +11,13 @@ CSocketManager::CSocketManager()
 	mSocketMaxCount = 0;
 
 	InitializeCriticalSection(&mCS);
+	InitializeCriticalSection(&mUsingCS);
 }
 
 CSocketManager::~CSocketManager()
 {
 	DeleteCriticalSection(&mCS);
+	DeleteCriticalSection(&mUsingCS);
 }
 
 CSocketManager * CSocketManager::Get()
@@ -35,6 +37,9 @@ void CSocketManager::Purge()
 	}
 }
 
+/**
+	@brief
+*/
 void CSocketManager::InitSocket(int InCount, int InNextCount)
 {
 	mNextCount = InNextCount;
@@ -42,6 +47,9 @@ void CSocketManager::InitSocket(int InCount, int InNextCount)
 	_AllocSocket(InCount);
 }
 
+/**
+	@brief
+*/
 CSocket * CSocketManager::GetSocket()
 {
 	CSocket* sock = nullptr;
@@ -61,6 +69,9 @@ CSocket * CSocketManager::GetSocket()
 	return sock;
 }
 
+/**
+	@brief
+*/
 void CSocketManager::ReturnSocket(CSocket* InSock)
 {
 	EnterCriticalSection(&mCS);
@@ -68,6 +79,34 @@ void CSocketManager::ReturnSocket(CSocket* InSock)
 	LeaveCriticalSection(&mCS);
 }
 
+/**
+	@brief
+*/
+void CSocketManager::OnConnect(CSocket* InSock)
+{
+	EnterCriticalSection(&mUsingCS);
+	mUsingSocket.insert({ InSock->GetIndex(), InSock });
+	InSock->OnConnectSocket();
+	LeaveCriticalSection(&mUsingCS);
+}
+
+/**
+	@brief
+*/
+void CSocketManager::OnDisConnect(CSocket* InSock)
+{
+	EnterCriticalSection(&mUsingCS);
+	mUsingSocket.erase(InSock->GetIndex());
+	InSock->OnCloseSocket();
+	LeaveCriticalSection(&mUsingCS);
+
+	ReturnSocket(InSock);
+}
+
+
+/**
+	@brief 
+*/
 void CSocketManager::_AllocSocket(int InCount)
 {
 	for (int i = mSocketMaxCount; i < mSocketMaxCount + InCount; i++)

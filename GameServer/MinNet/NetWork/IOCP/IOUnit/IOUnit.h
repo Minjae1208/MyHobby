@@ -38,6 +38,7 @@ public:
 	inline CSocket* GetSocket() { return mSock; }
 	inline LPOVERLAPPED GetOverlappedPtr() { return (LPOVERLAPPED)this; }
 	inline CIOBufferInterface* GetIOBuffer() { return mBufferInterface; }
+	inline IO_TYPE GetIOType() { return mType; }
 
 private:
 	void InitOverlapped()

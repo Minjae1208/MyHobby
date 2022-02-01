@@ -40,10 +40,107 @@ bool CiocpServer::InitNetWork(int InPort, int InWorkerCount, int InSocketCount)
 
 void CiocpServer::_WorkerFunc()
 {
+	DWORD dw = 0;
+	ULONGLONG key = 0;
+	bool result = false;
+	CIOUnit* ioUnit = NULL;
+	
 
-	// GQCS FUNCTION
+	while (true == GetState())
+	{
+		dw = 0;
+		key = 0;
+		ioUnit = NULL;
+
+		result = GetQueuedCompletionStatus(mIOCP, &dw, &key, (LPOVERLAPPED*)ioUnit->GetOverlappedPtr(), INFINITE);
+
+		if (false == result)
+		{
+			OnClose(ioUnit);
+			DisConnectSocket(ioUnit);
+			continue;
+		}
+		else if (true == result && 0 == dw)
+		{
+			if (IO_TYPE::ACEEPT == ioUnit->GetIOType())
+			{
+				OnConnect(ioUnit);
+			}
+			else
+			{
+				OnClose(ioUnit);
+				DisConnectSocket(ioUnit);
+				continue;
+			}
+		}
+		else
+		{
+			if (IO_TYPE::RECV == ioUnit->GetIOType())
+			{
+				OnRecv(ioUnit);
+			}
+			else if (IO_TYPE::SEND == ioUnit->GetIOType())
+			{
+
+			}
+		}
+
+		// SEND를 제외한 사용한 IO 반납
+		// SEND의 경우 OnSend 함수에서 모든 전송을 끝내면 자동으로 반납함
+		if (NULL != ioUnit && IO_TYPE::SEND != ioUnit->GetIOType())
+		{
+			DeAllocIoUnit(ioUnit);
+		}
+	}
+}
+
+void CiocpServer::OnConnect(CIOUnit* InIO)
+{
+	CIOAccept* ioAccept = (CIOAccept*)InIO;
+	CSocket* sock = ioAccept->GetSocket();
+
+	CIORecv* ioRecv = new CIORecv(sock);
+	CIORecvBuffer* ioBuffer = (CIORecvBuffer*)ioRecv->GetIOBuffer();
+	
+	DWORD dwRecv, dwFlags = 0;
+	int result = WSARecv(sock->GetSocket(), ioBuffer->GetWsaBufPtr(), 1, &dwRecv, &dwFlags, ioRecv->GetOverlappedPtr(), 0);
+	if (0 == result)
+	{
+		// Success
+	}
+	else if (SOCKET_ERROR == result && WSAGetLastError() == WSA_IO_PENDING)
+	{
+		// Success
+	}
+	else
+	{
+		// fail
+		DeAllocIoUnit(ioRecv);
+	}
+}
+
+void CiocpServer::OnRecv(CIOUnit* InIO)
+{
+	CIORecv* ioRecv = (CIORecv*)InIO;
+	CIORecvBuffer* ioBuffer = (CIORecvBuffer*)ioRecv->GetIOBuffer();
+
+	
+	//MinNet::CIORecv* 
 
 
+}
+
+void CiocpServer::OnSend(CIOUnit* InIO)
+{
+
+}
+
+void CiocpServer::OnClose(CIOUnit* InIO)
+{
+	CSocket* sock = InIO->GetSocket();
+	CSocketManager::Get()->OnDisConnect(sock);
+	
+	DeAllocIoUnit(InIO);
 }
 
 bool CiocpServer::_WsaStart()
@@ -93,6 +190,37 @@ bool CiocpServer::_Handle()
 		return false;
 
 	return true;
+}
+
+void CiocpServer::DisConnectSocket(CIOUnit * InIO)
+{
+	CSocket* sock = InIO->GetSocket();
+	//CSocketManager::Get()->
+
+	DeAllocIoUnit(InIO);
+}
+
+void CiocpServer::DeAllocIoUnit(CIOUnit * InIO)
+{
+	switch (InIO->GetIOType())
+	{
+	case IO_TYPE::ACEEPT:
+		delete static_cast<CIOAcceptBuffer*>(InIO->GetIOBuffer());
+		delete static_cast<CIOAccept*>(InIO);
+		break;
+	case IO_TYPE::RECV:
+		delete static_cast<CIORecvBuffer*>(InIO->GetIOBuffer());
+		delete static_cast<CIORecv*>(InIO);
+		break;
+	case IO_TYPE::SEND:
+		delete static_cast<CIOSendBuffer*>(InIO->GetIOBuffer());
+		delete static_cast<CIOSend*>(InIO);
+		break;
+	case IO_TYPE::CLOSE:
+		delete static_cast<CIOCloseBuffer*>(InIO->GetIOBuffer());
+		delete static_cast<CIOClose*>(InIO);
+		break;
+	}
 }
 
 void CiocpServer::_CreateSocket(int InCount)

@@ -11,7 +11,9 @@
 #include <queue>
 #include <vector>
 #include <list>
+#include <map>
 #include <string>
+#include <atomic>
 
 #define MINNET_BEGINE namespace MinNet{
 #define MINNET_END }

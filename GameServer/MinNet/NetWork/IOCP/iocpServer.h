@@ -10,6 +10,8 @@ MINNET_BEGINE
 
 typedef CiocpWorker_std CiocpWorker;
 
+class CIOUnit;
+
 class CiocpServer : public CiocpWorker
 {
 public:
@@ -20,12 +22,19 @@ public:
 	
 protected:
 	virtual void _WorkerFunc();
+	virtual void OnConnect(CIOUnit* InIO);
+	virtual void OnRecv(CIOUnit* InIO);
+	virtual void OnSend(CIOUnit* InIO);
+	virtual void OnClose(CIOUnit* InIO);
 
 private:
 	bool _WsaStart();
 	bool _Bind(int InPort);
 	bool _Listen();
 	bool _Handle();
+
+	void DisConnectSocket(CIOUnit* InIO);
+	void DeAllocIoUnit(CIOUnit* InIO);
 
 	void _CreateSocket(int InCount);
 	void _AcceptExSocket();
