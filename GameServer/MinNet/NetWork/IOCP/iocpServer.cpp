@@ -1,6 +1,7 @@
 ﻿#include "iocpServer.h"
 #include "Socket/SocketManager.h"
 
+//#include "IOUnit/IOManager.h"
 #include "IOUnit/IOAccept.h"
 #include "IOUnit/IORecv.h"
 #include "IOUnit/IOSend.h"
@@ -45,7 +46,6 @@ void CiocpServer::_WorkerFunc()
 	bool result = false;
 	CIOUnit* ioUnit = NULL;
 	
-
 	while (true == GetState())
 	{
 		dw = 0;
@@ -77,11 +77,11 @@ void CiocpServer::_WorkerFunc()
 		{
 			if (IO_TYPE::RECV == ioUnit->GetIOType())
 			{
-				OnRecv(ioUnit);
+				OnRecv(ioUnit, dw);
 			}
 			else if (IO_TYPE::SEND == ioUnit->GetIOType())
 			{
-
+				OnSend(ioUnit, dw);
 			}
 		}
 
@@ -119,7 +119,7 @@ void CiocpServer::OnConnect(CIOUnit* InIO)
 	}
 }
 
-void CiocpServer::OnRecv(CIOUnit* InIO)
+void CiocpServer::OnRecv(CIOUnit* InIO, DWORD InLen)
 {
 	CIORecv* ioRecv = (CIORecv*)InIO;
 	CIORecvBuffer* ioBuffer = (CIORecvBuffer*)ioRecv->GetIOBuffer();
@@ -130,10 +130,36 @@ void CiocpServer::OnRecv(CIOUnit* InIO)
 
 }
 
-void CiocpServer::OnSend(CIOUnit* InIO)
+void CiocpServer::OnSend(CIOUnit* InIO, DWORD InLen)
 {
+	CIOSend* ioSend = (CIOSend*)InIO;
+	CIOSendBuffer* ioBuffer = (CIOSendBuffer*)ioSend->GetIOBuffer();
 
+	if (InLen < ioBuffer->GetUseBufSize())
+	{
+		ioBuffer->Compress(InLen);
+
+		DWORD dwBytes, dwFlags = 0;
+		int result = WSASend(ioSend->GetSocket()->GetSocket(), ioBuffer->GetWsaBufPtr(), 1, &dwBytes, dwFlags, ioSend->GetOverlappedPtr(), 0);
+		if (0 == result)
+		{
+			// Success
+		}
+		else if (SOCKET_ERROR == result && WSA_IO_PENDING == WSAGetLastError())
+		{
+			// Success
+		}
+		else
+		{
+			OnClose(ioSend);
+		}
+	}
+	else
+	{
+		DeAllocIoUnit(ioSend);
+	}
 }
+
 
 void CiocpServer::OnClose(CIOUnit* InIO)
 {
@@ -141,6 +167,10 @@ void CiocpServer::OnClose(CIOUnit* InIO)
 	CSocketManager::Get()->OnDisConnect(sock);
 	
 	DeAllocIoUnit(InIO);
+}
+
+void CiocpServer::StopNetWork()
+{
 }
 
 bool CiocpServer::_WsaStart()

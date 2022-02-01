@@ -23,9 +23,11 @@ public:
 protected:
 	virtual void _WorkerFunc();
 	virtual void OnConnect(CIOUnit* InIO);
-	virtual void OnRecv(CIOUnit* InIO);
-	virtual void OnSend(CIOUnit* InIO);
+	virtual void OnRecv(CIOUnit* InIO, DWORD InLen);
+	virtual void OnSend(CIOUnit* InIO, DWORD InLen);
 	virtual void OnClose(CIOUnit* InIO);
+
+	void StopNetWork();
 
 private:
 	bool _WsaStart();

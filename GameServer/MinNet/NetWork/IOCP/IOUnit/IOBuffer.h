@@ -65,17 +65,58 @@ public:
 	}
 	virtual ~CIOSendBuffer()
 	{
-
+		// ¼Ò¸êÀÚ ÇÊ¿ä
 	}
 
 	inline char* GetMemory() { return mBuf; }
 	inline LPWSABUF GetWsaBufPtr() { return &mWsaBuf; }
+	inline int GetUseWsaBufCount() { return (int)mWsaBufVector.size(); }
+	inline ULONG GetUseBufSize() { return mUseBufSize; }
 
 	void SetBuffer(void* InData, ULONG InSize)
 	{
+		mUseBufSize = InSize;
+
+		
 
 	}
 
+	void Compress(ULONG InSize)
+	{
+		ULONG size = InSize;
+		int useCount = GetUseWsaBufCount();
+		int Count = 0;
+
+		if (0 == useCount)
+		{
+			return;
+		}
+
+		for (int i = 0; i < useCount; i++)
+		{
+			if (mWsaBufVector[i].len <= size)
+			{
+				size -= mWsaBufVector[i].len;
+				PushMemory(mBufferVector[i]);
+				Count++;
+			}
+			else
+			{
+				mWsaBufVector[i].len -= size;
+				break;
+			}
+		}
+
+		mWsaBufVector.erase(mWsaBufVector.begin(), mWsaBufVector.begin() + Count);
+		mBufferVector.erase(mBufferVector.begin(), mBufferVector.begin() + Count);
+
+		mUseBufSize -= InSize;
+	}
+
+private:
+	std::vector<WSABUF> mWsaBufVector;
+	std::vector<char*> mBufferVector;
+	ULONG mUseBufSize;
 };
 
 class CIOCloseBuffer : public CIOBufferInterface

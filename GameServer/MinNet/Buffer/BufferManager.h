@@ -9,8 +9,8 @@ template <typename T>
 class CBufferManager
 {
 public:
-	CBufferManager();
-	~CBufferManager();
+	CBufferManager() {}
+	~CBufferManager() {}
 
 
 	/**
