@@ -37,8 +37,7 @@ private:
 	int mSocketMaxCount;
 	int mNextCount;
 
-	std::atomic<int> mKey;
-	std::map<int, CSocket*> mUsingSocket;
+	std::unordered_map<int, CSocket*> mUsingSocket;
 };
 
 MINNET_END

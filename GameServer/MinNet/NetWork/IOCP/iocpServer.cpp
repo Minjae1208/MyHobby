@@ -1,13 +1,16 @@
 ﻿#include "iocpServer.h"
 #include "Socket/SocketManager.h"
 
+#include "Peer/PeerManager.h"
+#include "Peer/Peer.h"
+
 //#include "IOUnit/IOManager.h"
 #include "IOUnit/IOAccept.h"
 #include "IOUnit/IORecv.h"
 #include "IOUnit/IOSend.h"
 #include "IOUnit/IOClose.h"
 
-MINNET_BEGINE
+NAMESPACE_BEGINE(MinNet)
 
 CiocpServer::CiocpServer()
 {
@@ -20,6 +23,9 @@ CiocpServer::~CiocpServer()
 	WSACleanup();
 }
 
+/**
+	@brief IOCP NetWork Initialize
+*/
 bool CiocpServer::InitNetWork(int InPort, int InWorkerCount, int InSocketCount)
 {
 	if (false == _WsaStart())
@@ -39,6 +45,9 @@ bool CiocpServer::InitNetWork(int InPort, int InWorkerCount, int InSocketCount)
 	return true;
 }
 
+/**
+	@brief GQCS Main Worker Function
+*/
 void CiocpServer::_WorkerFunc()
 {
 	DWORD dw = 0;
@@ -52,12 +61,11 @@ void CiocpServer::_WorkerFunc()
 		key = 0;
 		ioUnit = NULL;
 
-		result = GetQueuedCompletionStatus(mIOCP, &dw, &key, (LPOVERLAPPED*)ioUnit->GetOverlappedPtr(), INFINITE);
+		result = GetQueuedCompletionStatus(mIOCP, &dw, &key, (LPOVERLAPPED*)&ioUnit, INFINITE);
 
 		if (false == result)
 		{
 			OnClose(ioUnit);
-			DisConnectSocket(ioUnit);
 			continue;
 		}
 		else if (true == result && 0 == dw)
@@ -69,7 +77,6 @@ void CiocpServer::_WorkerFunc()
 			else
 			{
 				OnClose(ioUnit);
-				DisConnectSocket(ioUnit);
 				continue;
 			}
 		}
@@ -89,10 +96,11 @@ void CiocpServer::_WorkerFunc()
 		// SEND의 경우 OnSend 함수에서 모든 전송을 끝내면 자동으로 반납함
 		if (NULL != ioUnit && IO_TYPE::SEND != ioUnit->GetIOType())
 		{
-			DeAllocIoUnit(ioUnit);
+			_DeAllocIoUnit(ioUnit);
 		}
 	}
 }
+
 
 void CiocpServer::OnConnect(CIOUnit* InIO)
 {
@@ -102,6 +110,9 @@ void CiocpServer::OnConnect(CIOUnit* InIO)
 	CIORecv* ioRecv = new CIORecv(sock);
 	CIORecvBuffer* ioBuffer = (CIORecvBuffer*)ioRecv->GetIOBuffer();
 	
+	CPeer* peer = CPeerManager::Get()->ConnectPeer(ioRecv->GetSocket()->GetIndex());
+	ioRecv->SetPeer(peer);
+
 	DWORD dwRecv, dwFlags = 0;
 	int result = WSARecv(sock->GetSocket(), ioBuffer->GetWsaBufPtr(), 1, &dwRecv, &dwFlags, ioRecv->GetOverlappedPtr(), 0);
 	if (0 == result)
@@ -115,23 +126,44 @@ void CiocpServer::OnConnect(CIOUnit* InIO)
 	else
 	{
 		// fail
-		DeAllocIoUnit(ioRecv);
+		_DeAllocIoUnit(ioRecv);
 	}
 }
 
 void CiocpServer::OnRecv(CIOUnit* InIO, DWORD InLen)
 {
-	CIORecv* ioRecv = (CIORecv*)InIO;
-	CIORecvBuffer* ioBuffer = (CIORecvBuffer*)ioRecv->GetIOBuffer();
+	// 데이터 처리
+	//CIORecv* ioRecv = (CIORecv*)InIO;
+	//CIORecvBuffer* ioBuffer = (CIORecvBuffer*)ioRecv->GetIOBuffer();
 
 	
-	//MinNet::CIORecv* 
+	CIORecv* ioRecv = new CIORecv(InIO->GetSocket());
+	CIORecvBuffer* ioBuffer = (CIORecvBuffer*)ioRecv->GetIOBuffer();
 
+	ioRecv->SetPeer(InIO->GetPeer());
 
+	DWORD dwBytes, dwFlags = 0;
+	int result = WSARecv(ioRecv->GetSocket()->GetSocket(), ioBuffer->GetWsaBufPtr(), 1, &dwBytes, &dwFlags, ioRecv->GetOverlappedPtr(), 0);
+	if (0 == result)
+	{
+		// Success 
+	}
+	else if (SOCKET_ERROR == result && WSA_IO_PENDING == WSAGetLastError())
+	{
+		// Success 
+	}
+	else
+	{
+		// Fail
+		_DeAllocIoUnit(ioRecv);
+	}
 }
 
 void CiocpServer::OnSend(CIOUnit* InIO, DWORD InLen)
 {
+	// Peer가 끊긴 상태인지 확인 필요
+	//if(InIO->GetPeer()->)
+
 	CIOSend* ioSend = (CIOSend*)InIO;
 	CIOSendBuffer* ioBuffer = (CIOSendBuffer*)ioSend->GetIOBuffer();
 
@@ -156,7 +188,7 @@ void CiocpServer::OnSend(CIOUnit* InIO, DWORD InLen)
 	}
 	else
 	{
-		DeAllocIoUnit(ioSend);
+		_DeAllocIoUnit(ioSend);
 	}
 }
 
@@ -166,11 +198,13 @@ void CiocpServer::OnClose(CIOUnit* InIO)
 	CSocket* sock = InIO->GetSocket();
 	CSocketManager::Get()->OnDisConnect(sock);
 	
-	DeAllocIoUnit(InIO);
+	_DeAllocIoUnit(InIO);
 }
 
 void CiocpServer::StopNetWork()
 {
+	// StopWorker 원자식으로 변경필요함
+	StopWorker();
 }
 
 bool CiocpServer::_WsaStart()
@@ -222,15 +256,7 @@ bool CiocpServer::_Handle()
 	return true;
 }
 
-void CiocpServer::DisConnectSocket(CIOUnit * InIO)
-{
-	CSocket* sock = InIO->GetSocket();
-	//CSocketManager::Get()->
-
-	DeAllocIoUnit(InIO);
-}
-
-void CiocpServer::DeAllocIoUnit(CIOUnit * InIO)
+void CiocpServer::_DeAllocIoUnit(CIOUnit * InIO)
 {
 	switch (InIO->GetIOType())
 	{
@@ -239,10 +265,12 @@ void CiocpServer::DeAllocIoUnit(CIOUnit * InIO)
 		delete static_cast<CIOAccept*>(InIO);
 		break;
 	case IO_TYPE::RECV:
+		InIO->GetPeer()->DeCrease();
 		delete static_cast<CIORecvBuffer*>(InIO->GetIOBuffer());
 		delete static_cast<CIORecv*>(InIO);
 		break;
 	case IO_TYPE::SEND:
+		InIO->GetPeer()->DeCrease();
 		delete static_cast<CIOSendBuffer*>(InIO->GetIOBuffer());
 		delete static_cast<CIOSend*>(InIO);
 		break;
@@ -278,5 +306,4 @@ void CiocpServer::_AcceptExSocket()
 	}
 }
 
-MINNET_END
-
+NAMESPACE_END

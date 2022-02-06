@@ -1,24 +1,22 @@
-#pragma once
 
-#include "IOManager.h"
+#include "ServerManager.h"
 
-#include "../../../Buffer/BufferManager.h"
-#include "../../../Buffer/ObjectManager.h"
+#include "../../Buffer/BufferManager.h"
+#include "../../Buffer/ObjectManager.h"
 
-#include "IOAccept.h"
-#include "IORecv.h"
-#include "IOSend.h"
-#include "IOClose.h"
+#include "Peer/Peer.h"
 
-MINNET_BEGINE
+#include "IOUnit/IOAccept.h"
+#include "IOUnit/IORecv.h"
+#include "IOUnit/IOSend.h"
+#include "IOUnit/IOClose.h"
 
+NAMESPACE_BEGINE(MinNet)
 
-/**
-	@brief 시작 전 반드시 Constructor를 호출
-*/
-void CIOManager::Constructor()
+void CServerManager::Constructor()
 {
-
+	// Peer Init
+	CObjectManager<CPeer>::InitObjectManager(1, 1);
 
 	// IOUnit Init
 	CObjectManager<CIOAccept>::InitObjectManager(1, 1);
@@ -38,11 +36,11 @@ void CIOManager::Constructor()
 	CBufferManager<CIOSendBuffer>::InitBufferManager(512, 1, 1);
 }
 
-/**
-	@brief 종료 전 반드시 Destructor를 호출
-*/
-void CIOManager::Destructor()
+void CServerManager::Destructor()
 {
+	// Peer Clear
+	CObjectManager<CPeer>::ClearObjectManager();
+
 	// IOUnit Clear
 	CObjectManager<CIOAccept>::ClearObjectManager();
 	CObjectManager<CIORecv>::ClearObjectManager();
@@ -59,7 +57,6 @@ void CIOManager::Destructor()
 	CBufferManager<CIOAcceptBuffer>::ClearBufferManager();
 	CBufferManager<CIORecvBuffer>::ClearBufferManager();
 	CBufferManager<CIOSendBuffer>::ClearBufferManager();
-
 }
 
-MINNET_END
+NAMESPACE_END

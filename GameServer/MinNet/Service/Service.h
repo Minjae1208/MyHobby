@@ -15,8 +15,11 @@ public:
 	static CService* Get();
 	static void Purge();
 
-protected:
 	bool InitService(std::wstring InCmd, LPTSTR InSriName);
+
+protected:
+	virtual void Constructor() {}
+	virtual void Distrucotr() {}
 
 private:
 	bool _Install(LPCTSTR InSriName);

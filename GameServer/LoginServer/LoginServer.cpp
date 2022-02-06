@@ -3,7 +3,11 @@
 
 #include "framework.h"
 #include "LoginServer.h"
-#include "Login_NetWork/LoginNetWork.h"
+
+//#include "Login_NetWork/LoginNetWork.h"
+#include "Login_Service/LoginService.h"
+
+#include <iostream>
 
 #define MAX_LOADSTRING 100
 
@@ -25,7 +29,9 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
-
+	
+	LPTSTR sriName = (LPTSTR)(_T("로그인서비스"));
+	CLoginService::Get()->InitService(lpCmdLine, sriName);
 
 	// Service 통해서 해야함
 	//CLoginNetWork::Get()->InitLoginNetWork(9000, 1, 1);
@@ -43,19 +49,19 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_LOGINSERVER));
 
-    MSG msg;
+    //MSG msg;
 
     // 기본 메시지 루프입니다:
-    while (GetMessage(&msg, nullptr, 0, 0))
-    {
-        if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
-        {
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
-        }
-    }
+    //while (GetMessage(&msg, nullptr, 0, 0))
+    //{
+    //    if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
+    //    {
+    //        TranslateMessage(&msg);
+    //        DispatchMessage(&msg);
+    //    }
+    //}
 
-    return (int) msg.wParam;
+    return 0;
 }
 
 

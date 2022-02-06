@@ -7,6 +7,7 @@ MINNET_BEGINE
 class CSocket
 {
 public:
+	CSocket();
 	CSocket(int InIndex);
 	~CSocket();
 
@@ -18,7 +19,6 @@ public:
 	void OnConnectSocket();
 	void OnCloseSocket();
 	
-
 private:
 	enum class SOCKET_STATE
 	{

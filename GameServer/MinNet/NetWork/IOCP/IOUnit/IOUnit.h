@@ -3,6 +3,7 @@
 #include "../../../MinNetCommon.h"
 #include "IOBuffer.h"
 #include "../Socket/Socket.h"
+#include "../Peer/Peer.h"
 
 MINNET_BEGINE
 
@@ -40,6 +41,14 @@ public:
 	inline CIOBufferInterface* GetIOBuffer() { return mBufferInterface; }
 	inline IO_TYPE GetIOType() { return mType; }
 
+	void SetPeer(CPeer* InPeer)
+	{
+		mPeer = InPeer;
+		mPeer->SetIOUnit(this);
+		mPeer->InCrease();
+	}
+	inline CPeer* GetPeer() { return mPeer; }
+
 private:
 	void InitOverlapped()
 	{
@@ -50,6 +59,7 @@ private:
 	IO_TYPE mType;
 	CSocket* mSock;
 	CIOBufferInterface* mBufferInterface;
+	CPeer* mPeer;
 };
 
 MINNET_END

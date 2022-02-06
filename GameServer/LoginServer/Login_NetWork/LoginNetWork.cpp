@@ -31,8 +31,7 @@ void CLoginNetWork::Purge()
 
 bool CLoginNetWork::InitLoginNetWork(int InPort, int InThreadCount, int InSocketCount)
 {
-	//return InitNetWork(InPort, InThreadCount, InSocketCount);
-	return false;
+	return InitNetWork(InPort, InThreadCount, InSocketCount);
 }
 
 void CLoginNetWork::StopLoginNetWork()

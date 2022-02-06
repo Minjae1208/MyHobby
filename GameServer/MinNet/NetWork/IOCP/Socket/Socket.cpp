@@ -3,6 +3,11 @@
 
 MINNET_BEGINE
 
+CSocket::CSocket()
+{
+
+}
+
 CSocket::CSocket(int InIndex)
 {
 	mIndex = InIndex;

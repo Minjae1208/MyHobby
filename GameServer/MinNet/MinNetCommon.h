@@ -11,15 +11,17 @@
 #include <queue>
 #include <vector>
 #include <list>
-#include <map>
+#include <unordered_map>
 #include <string>
-#include <atomic>
+
+#define NAMESPACE_BEGINE(name) namespace name{
+#define NAMESPACE_END }
 
 #define MINNET_BEGINE namespace MinNet{
 #define MINNET_END }
 
 
-MINNET_BEGINE
+NAMESPACE_BEGINE(MinNet)
 
 enum class BUF_DEALLOC_TYPE
 {
@@ -43,4 +45,4 @@ enum class IO_BUF_TYPE
 	CLOSE,
 };
 
-MINNET_END
+NAMESPACE_END

@@ -34,6 +34,9 @@
     <ClInclude Include="Login_NetWork\LoginNetWork.h">
       <Filter>NetWork</Filter>
     </ClInclude>
+    <ClInclude Include="Login_Service\LoginService.h">
+      <Filter>Service</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="LoginServer.rc">
@@ -54,6 +57,9 @@
     </ClCompile>
     <ClCompile Include="Login_NetWork\LoginNetWork.cpp">
       <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Login_Service\LoginService.cpp">
+      <Filter>Service</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

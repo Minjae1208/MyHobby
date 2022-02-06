@@ -40,9 +40,9 @@ void CService::Purge()
 */
 bool CService::InitService(std::wstring InCmd, LPTSTR InSriName)
 {
-	if (L"install" == InCmd)
+	if (L"Install" == InCmd)
 		return _Install(InSriName);
-	else if (L"uninstall" == InCmd)
+	else if (L"Uninstall" == InCmd)
 		return  _UnInstall(InSriName);
 	else
 		return  _Start(InSriName);
@@ -76,7 +76,7 @@ bool CService::_Install(LPCTSTR InSriName)
 		InSriName,      // Service Name
 		InSriName,		// Service Summary
 		SERVICE_ALL_ACCESS,
-		SERVICE_WIN32_OWN_PROCESS,
+		SERVICE_WIN32_OWN_PROCESS | SERVICE_INTERACTIVE_PROCESS,
 		SERVICE_DEMAND_START,
 		SERVICE_ERROR_NORMAL,
 		SriFilePath,			// Path
@@ -179,7 +179,7 @@ bool CService::_SetServiceState(DWORD InState)
 {
 	mSriState.dwServiceType = SERVICE_WIN32_OWN_PROCESS;
 	mSriState.dwCurrentState = InState;
-	mSriState.dwControlsAccepted = 0;
+	mSriState.dwControlsAccepted = SERVICE_ACCEPT_PAUSE_CONTINUE | SERVICE_ACCEPT_STOP;
 	mSriState.dwWin32ExitCode = 0;
 	mSriState.dwServiceSpecificExitCode = 0;
 	mSriState.dwCheckPoint = 0;
@@ -235,7 +235,11 @@ void CService::_SriMain(DWORD argc, LPTSTR * argv)
 	_SetServiceState(SERVICE_START_PENDING);
 	_SetServiceState(SERVICE_RUNNING);
 
+	//Constructor();
+
 	_Run();
+
+	//Distrucotr();
 
 	_SetServiceState(SERVICE_STOPPED);
 }

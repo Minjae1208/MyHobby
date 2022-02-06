@@ -18,9 +18,8 @@ public:
 	CiocpServer();
 	virtual ~CiocpServer();
 
-	bool InitNetWork(int InPort, int InWorkerCount, int InSocketCount);
-	
 protected:
+	bool InitNetWork(int InPort, int InWorkerCount, int InSocketCount);
 	virtual void _WorkerFunc();
 	virtual void OnConnect(CIOUnit* InIO);
 	virtual void OnRecv(CIOUnit* InIO, DWORD InLen);
@@ -35,8 +34,7 @@ private:
 	bool _Listen();
 	bool _Handle();
 
-	void DisConnectSocket(CIOUnit* InIO);
-	void DeAllocIoUnit(CIOUnit* InIO);
+	void _DeAllocIoUnit(CIOUnit* InIO);
 
 	void _CreateSocket(int InCount);
 	void _AcceptExSocket();
