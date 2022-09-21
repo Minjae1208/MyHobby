@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="main">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="NetWork">
+      <UniqueIdentifier>{4580581a-ffea-4da2-b176-892063fe674e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Starter">
+      <UniqueIdentifier>{1ff025e3-b94e-4569-8301-aeace92beaeb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\NetWork.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\Accepter.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Starter\Starter.cpp">
+      <Filter>Starter</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\NetWork.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\Accepter.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Starter\Starter.h">
+      <Filter>Starter</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

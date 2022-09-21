@@ -1,8 +1,6 @@
 
-GameServer/MinNet/MinNet.vcxproj.user
-GameServer/.vs/
-GameServer/_Intermediate/
-GameServer/_Bin/
-GameServer/_Lib/
+Server/Test_IOCP/Test_IOCP.vcxproj.user
+Server/.vs/
+Server/Build/
 *.obj
 *.user
