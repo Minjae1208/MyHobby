@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "NetWork.h"
+#include "Accepter.h"
 
 CNetWork::CNetWork()
 {
+	accepter = std::make_shared<CAccepter>();
 }
 
 CNetWork::~CNetWork()
 {
+
 }
 
 bool CNetWork::Start()
@@ -16,7 +19,7 @@ bool CNetWork::Start()
 		return false;
 
 	// Set Accepter Thread
-
+	accepter->StartAccepter();
 
 
 	// Set IO Thread
