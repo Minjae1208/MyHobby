@@ -8,6 +8,7 @@
 #include "ws2tcpip.h"
 
 #include <thread>
+#include <vector>
 
 
 

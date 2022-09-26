@@ -22,11 +22,14 @@
     <ClCompile Include="NetWork\NetWork.cpp">
       <Filter>NetWork</Filter>
     </ClCompile>
-    <ClCompile Include="NetWork\Accepter.cpp">
-      <Filter>NetWork</Filter>
-    </ClCompile>
     <ClCompile Include="Starter\Starter.cpp">
       <Filter>Starter</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\IOUnit.cpp">
+      <Filter>NetWork</Filter>
+    </ClCompile>
+    <ClCompile Include="NetWork\IOManager.cpp">
+      <Filter>NetWork</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -39,11 +42,14 @@
     <ClInclude Include="Common.h">
       <Filter>main</Filter>
     </ClInclude>
-    <ClInclude Include="NetWork\Accepter.h">
-      <Filter>NetWork</Filter>
-    </ClInclude>
     <ClInclude Include="Starter\Starter.h">
       <Filter>Starter</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\IOUnit.h">
+      <Filter>NetWork</Filter>
+    </ClInclude>
+    <ClInclude Include="NetWork\IOManager.h">
+      <Filter>NetWork</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

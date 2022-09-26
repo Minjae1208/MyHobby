@@ -1,10 +1,11 @@
 #include "pch.h"
+
 #include "NetWork.h"
-#include "Accepter.h"
+#include "IOManager.h"
 
 CNetWork::CNetWork()
 {
-	accepter = std::make_shared<CAccepter>();
+	//accepter = std::make_unique<CAccepter>();
 }
 
 CNetWork::~CNetWork()
@@ -15,20 +16,35 @@ CNetWork::~CNetWork()
 bool CNetWork::Start()
 {
 	// NetWork Init
-	if (Init_NetWork())
+	if (Init_NetWork() == false)
+	{
+		// error
 		return false;
+	}
+
+
+	// Set IO Manager - 임시 RIO | IOCP(Accept) | IOCP(AcceptEx)로 나눠주기
+	if (1)		io_manager = std::make_unique<CRIOManager>();
+	else if (2)	io_manager = std::make_unique<CIOCPManager>();
+	else if (3)	io_manager = std::make_unique<CIOCPManager_Ex>();
+	//else		// error
+
+	if (io_manager->is_fail)
+	{
+		// error
+		return false;
+	}
+	else
+	{
+		// Set IO Worker
+		for (int i = 0; i < 1; i++)
+		{
+			workers.emplace_back(std::thread([this, index = i]() { this->io_manager->IO_Run(index); }));
+		}
+	}
 
 	// Set Accepter Thread
-	accepter->StartAccepter();
-
-
-	// Set IO Thread
-
-
-
-
-
-
+	accepter = std::thread([this]() { this->AccepterRun(); });
 
 	return true;
 }
@@ -36,6 +52,27 @@ bool CNetWork::Start()
 void CNetWork::Stop()
 {
 
+}
+
+void CNetWork::AccepterRun()
+{
+	while (true)
+	{
+		// permits an incoming connection attempt on a socket
+		// Link : https://learn.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-accept
+		SOCKET new_client = accept(listen_socket, NULL, NULL);
+		if (new_client == INVALID_SOCKET)
+		{
+			continue;
+		}
+		else
+		{
+			// Success Connect
+			io_manager->OnAccept(new_client);
+		}
+	}
+
+	return;
 }
 
 bool CNetWork::Init_NetWork()
@@ -55,8 +92,9 @@ bool CNetWork::Init_NetWork()
 
 	
 	sockaddr_in addr;
-	addr.sin_port = htons(1919);
 	inet_pton(AF_INET, "127.0.0.1", &addr.sin_addr);
+	addr.sin_port = htons(8990);
+	addr.sin_family = AF_INET;
 
 	// aassociates a local address with a socket
 	// Link : https://learn.microsoft.com/en-us/windows/win32/api/winsock2/nf-winsock2-bind
@@ -74,14 +112,6 @@ bool CNetWork::Init_NetWork()
 		return false;
 	}
 
-	// creates an I/O completion port
-	// Link : https://learn.microsoft.com/en-us/windows/win32/fileio/createiocompletionport
-	network_handle = CreateIoCompletionPort(INVALID_HANDLE_VALUE, NULL, 0, 0);
-	if (INVALID_HANDLE_VALUE == network_handle)
-	{
-		//error
-		return false;
-	}
-
 	return true;
 }
+

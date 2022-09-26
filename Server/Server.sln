@@ -15,6 +15,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{C4E91352-F
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_Client", "Test_Client\Test_Client.vcxproj", "{698433A5-E4EE-4535-8CE3-E36BDC680DF8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game_Server", "Game_Server\Game_Server.vcxproj", "{00342651-410A-44FB-9A08-A910ECC8448F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Network", "Network", "{0C997BD8-BDAE-4728-B45C-E543FCA57F1B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -39,9 +43,20 @@ Global
 		{698433A5-E4EE-4535-8CE3-E36BDC680DF8}.Release|x64.Build.0 = Release|x64
 		{698433A5-E4EE-4535-8CE3-E36BDC680DF8}.Release|x86.ActiveCfg = Release|Win32
 		{698433A5-E4EE-4535-8CE3-E36BDC680DF8}.Release|x86.Build.0 = Release|Win32
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Debug|x64.ActiveCfg = Debug|x64
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Debug|x64.Build.0 = Debug|x64
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Debug|x86.ActiveCfg = Debug|Win32
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Debug|x86.Build.0 = Debug|Win32
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Release|x64.ActiveCfg = Release|x64
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Release|x64.Build.0 = Release|x64
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Release|x86.ActiveCfg = Release|Win32
+		{00342651-410A-44FB-9A08-A910ECC8448F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0C997BD8-BDAE-4728-B45C-E543FCA57F1B} = {9A10ADA7-377A-4EA9-9FC1-35E443C9D63F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA1BA7-6730-4404-9D02-F2FF3242BAAA}

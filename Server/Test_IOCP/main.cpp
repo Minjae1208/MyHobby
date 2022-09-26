@@ -4,10 +4,12 @@
 int main()
 {
 	CStarter starter;
-	
+
 	starter.Start();
 
-	Sleep(5000);
+	while (true) {}
+
+	WSACleanup();
 
 	return 0;
 }

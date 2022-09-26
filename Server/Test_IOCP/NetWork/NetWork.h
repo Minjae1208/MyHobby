@@ -1,16 +1,19 @@
 #pragma once
 
-class CAccepter;
+class CIOManager;
 
 // @brief 서버 메인 네트워크 클래스
 class CNetWork : public CSingleton<CNetWork>
 {
 private:
 	SOCKET listen_socket;
-	HANDLE network_handle;
+	std::unique_ptr<CIOManager> io_manager;
 
-	friend class CAccepter;
-	std::shared_ptr<CAccepter> accepter;
+	// Accept용 Thread
+	std::thread accepter;
+
+	// IO용 Thread
+	std::vector<std::thread> workers;
 
 public:
 	CNetWork();
@@ -20,7 +23,10 @@ public:
 	bool Start();
 	void Stop();
 
+	// @brief RIO 및 IOCP-Accept 에서 사용 | IOCP-AcceptEx는 사용안함
+	void AccepterRun();
+
 private:
 	bool Init_NetWork();
-
 };
+
