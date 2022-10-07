@@ -12,4 +12,10 @@
 
 
 
-#include "../Tool/Singleton.h"
+//#include "../Tool/Singleton.h"
+
+
+namespace RIO_set
+{
+	
+}

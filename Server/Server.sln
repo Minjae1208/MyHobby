@@ -7,17 +7,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_IOCP", "Test_IOCP\Test
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{9A10ADA7-377A-4EA9-9FC1-35E443C9D63F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tool", "Tool", "{C4E91352-F65A-4CB7-B854-8011ACE4D6C5}"
-	ProjectSection(SolutionItems) = preProject
-		Tool\Singleton.h = Tool\Singleton.h
-		Tool\Stream.h = Tool\Stream.h
-	EndProjectSection
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_Client", "Test_Client\Test_Client.vcxproj", "{698433A5-E4EE-4535-8CE3-E36BDC680DF8}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game_Server", "Game_Server\Game_Server.vcxproj", "{00342651-410A-44FB-9A08-A910ECC8448F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756} = {B5CA4663-DC11-470E-8D81-6B4CA5FCF756}
+	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Network", "Network", "{0C997BD8-BDAE-4728-B45C-E543FCA57F1B}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Library", "Lib\Library\Library.vcxproj", "{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,12 +48,20 @@ Global
 		{00342651-410A-44FB-9A08-A910ECC8448F}.Release|x64.Build.0 = Release|x64
 		{00342651-410A-44FB-9A08-A910ECC8448F}.Release|x86.ActiveCfg = Release|Win32
 		{00342651-410A-44FB-9A08-A910ECC8448F}.Release|x86.Build.0 = Release|Win32
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Debug|x64.ActiveCfg = Debug|x64
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Debug|x64.Build.0 = Debug|x64
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Debug|x86.ActiveCfg = Debug|Win32
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Debug|x86.Build.0 = Debug|Win32
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Release|x64.ActiveCfg = Release|x64
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Release|x64.Build.0 = Release|x64
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Release|x86.ActiveCfg = Release|Win32
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{0C997BD8-BDAE-4728-B45C-E543FCA57F1B} = {9A10ADA7-377A-4EA9-9FC1-35E443C9D63F}
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756} = {9A10ADA7-377A-4EA9-9FC1-35E443C9D63F}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10FA1BA7-6730-4404-9D02-F2FF3242BAAA}

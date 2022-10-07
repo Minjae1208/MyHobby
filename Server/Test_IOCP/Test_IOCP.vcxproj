@@ -150,17 +150,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Common.h" />
-    <ClInclude Include="NetWork\IOManager.h" />
-    <ClInclude Include="NetWork\IOUnit.h" />
-    <ClInclude Include="NetWork\NetWork.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Starter\Starter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="NetWork\IOManager.cpp" />
-    <ClCompile Include="NetWork\IOUnit.cpp" />
-    <ClCompile Include="NetWork\NetWork.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>

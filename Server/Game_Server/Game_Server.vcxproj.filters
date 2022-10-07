@@ -1,12 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Common">
       <UniqueIdentifier>{e1390f41-538e-4cd1-bcad-d0c622992c35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{96c739c0-df23-4d2c-8548-4b7414c36a78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Account">
+      <UniqueIdentifier>{295dbea1-293a-4fe0-93f3-7bb7f2c9e031}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Account\Component">
+      <UniqueIdentifier>{8dd90455-5703-4ed8-95b0-2b9b46f93c4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{37c7dd6d-d6f2-4420-ac08-30b05b438e8a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -22,23 +30,41 @@
     <ClInclude Include="targetver.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\GameNet.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Peer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Game_Server.rc">
-      <Filter>리소스 파일</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="small.ico">
-      <Filter>리소스 파일</Filter>
-    </Image>
     <Image Include="Game_Server.ico">
-      <Filter>리소스 파일</Filter>
+      <Filter>Common</Filter>
+    </Image>
+    <Image Include="small.ico">
+      <Filter>Common</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game_Server.cpp">
       <Filter>Common</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\GameNet.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Peer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game_Server.rc">
+      <Filter>Common</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

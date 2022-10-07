@@ -77,7 +77,7 @@ public:
 		if (pInData != nullptr)
 		{
 			Clear();
-			Write(pInData[i], InSize, false);
+			//Write(pInData[i], InSize, false);
 			_read = _header->init(_buffer.data());
 		}
 	}
@@ -164,10 +164,10 @@ public:
 	void ReadBuffer(uint8* InBuffer)
 	{
 		// Setting Read Size
-		uint16 size = read<uint16>();
+		//uint16 size = read<uint16>();
 		// Copy By size
-		memcpy(InBuffer, &_buffer[_read], size);
-		_read += size;
+		//memcpy(InBuffer, &_buffer[_read], size);
+		//_read += size;
 	}
 
 private:

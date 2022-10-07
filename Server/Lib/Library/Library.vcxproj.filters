@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Common">
+      <UniqueIdentifier>{d6f6f090-d893-40d5-bdb2-b62222d2f6b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{28aa7783-e029-40d5-b976-c40ff9a350a0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tool">
+      <UniqueIdentifier>{d016fdb2-7738-4ceb-8159-e95e5067dc84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buffer">
+      <UniqueIdentifier>{6aeb68fe-74de-4ccc-a238-13dcb1e7b580}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{5b04ad30-5006-4836-8f3f-180ce3bb7525}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Common.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\IOManager.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\IOUnit.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\NetWork.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\NetPeer.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool\Singleton.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool\Stream.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool\Type.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\IOModel.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer\Buffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Context.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool\Lock.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Buffer\BufferManager.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\IOManager.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\IOUnit.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\NetWork.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\NetPeer.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\IOModel.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer\Buffer.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer\BufferManager.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

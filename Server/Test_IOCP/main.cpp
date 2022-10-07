@@ -9,7 +9,5 @@ int main()
 
 	while (true) {}
 
-	WSACleanup();
-
 	return 0;
 }
