@@ -63,6 +63,9 @@
     <ClInclude Include="Buffer\BufferManager.h">
       <Filter>Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Buffer\RingBuffer.h">
+      <Filter>Buffer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -87,6 +90,9 @@
       <Filter>Buffer</Filter>
     </ClCompile>
     <ClCompile Include="Buffer\BufferManager.cpp">
+      <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="Buffer\RingBuffer.cpp">
       <Filter>Buffer</Filter>
     </ClCompile>
   </ItemGroup>

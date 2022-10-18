@@ -1,5 +1,7 @@
 #pragma once
 
+
+
 class CNetWork;
 class CIOUnit;
 
@@ -28,27 +30,43 @@ protected:
 	// @brief **** 설명 추가하기
 	std::vector<std::thread> io_workers;
 	// @brief **** 설명 추가하기
-	std::vector<CIOUnit*> io_units;
+	std::vector<std::thread> proc_workers;
+
+	// @brief 현재 연결된 Unit 정보
+	std::unordered_map<uint32, CIOUnit*> conn_units;
+	// @brief 연결 안된 Unit 정보
+	std::deque<CIOUnit*> free_units;
 
 public:
 	CIOManager(CNetWork* net);
 	virtual ~CIOManager();
 
 public:
-	HANDLE GetHandle() { return io_handle; }
+	HANDLE GetIOHandle() { return io_handle; }
+	HANDLE GetProcHandle() { return proc_handle; }
 
 	// @brief
 	virtual bool Init_Manager();
+
+
 	// @brief RIO 및 IOCP-Accept 에서 사용 | IOCP-AcceptEx는 사용안함
 	virtual void Accepter_Run();
+	void Accepter_Stop();
+	// @brief Accept 처리 함수
+	void OnAccept(SOCKET socket);
+
+
 	// @brief 
 	virtual void IO_Run(int index) {};
+	// @brief
+	void IO_Stop();
+
+
 	// @brief 
 	void Process_Run();
-	// @brief
-	virtual void IO_Stop() {};
-	// @brief Accept 처리 함수
-	virtual void OnAccept(SOCKET socket) {};
+	void Process_Stop();
+
+
 	// @brief
 	virtual CIOUnit* AllocUnit(SOCKET socket) { return nullptr; };
 
@@ -64,8 +82,6 @@ private:
 	GUID guid;
 	std::vector<RIO_CQ> cqs;
 	RIO_EXTENSION_FUNCTION_TABLE table;
-	
-	std::vector<std::thread> process_workers;
 
 public:
 	CRIOManager(CNetWork* net);
@@ -74,8 +90,6 @@ public:
 public:
 	virtual bool Init_Manager();
 	virtual void IO_Run(int index);
-	// @brief Accept 처리 함수
-	virtual void OnAccept(SOCKET socket);
 	// @brief 
 	virtual CIOUnit* AllocUnit(SOCKET socket);
 
@@ -101,8 +115,6 @@ public:
 public:
 	virtual bool Init_Manager();
 	virtual void IO_Run(int index);
-	// @brief Accept 처리 함수
-	virtual void OnAccept(SOCKET socket);
 	// @brief 
 	virtual CIOUnit* AllocUnit(SOCKET socket);
 };
@@ -123,7 +135,4 @@ public:
 	virtual void Accepter_Run() {};
 
 	virtual void IO_Run(int index);
-
-	virtual void OnAccept(SOCKET socket);
-
 };

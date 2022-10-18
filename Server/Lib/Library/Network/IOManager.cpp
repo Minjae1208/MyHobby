@@ -98,6 +98,47 @@ void CIOManager::Accepter_Run()
 	return;
 }
 
+void CIOManager::Accepter_Stop()
+{
+	accept_run = false;
+
+	if (INVALID_SOCKET != listen_socket)
+	{
+		closesocket(listen_socket);
+		listen_socket = INVALID_SOCKET;
+	}
+
+	accept_worker.join();
+}
+
+void CIOManager::OnAccept(SOCKET socket)
+{
+	// Unit Lock
+	std::lock_guard<std::mutex> lock_guard(unit_lock);
+
+	CIOUnit* unit = network->io_manager->AllocUnit(socket);
+	if (unit == nullptr)
+	{
+		closesocket(socket);
+		return;
+	}
+
+
+	unit->SetRecv();
+
+	conn_units.insert({ unit->GetID(), unit });
+}
+
+void CIOManager::IO_Stop()
+{
+	io_run = false;
+
+	for (auto& worker : io_workers)
+	{
+		worker.join();
+	}
+}
+
 void CIOManager::Process_Run()
 {
 	DWORD length = 0;
@@ -109,8 +150,10 @@ void CIOManager::Process_Run()
 		length = 0;
 		unit = nullptr;
 		context = nullptr;
-		if (false == GetQueuedCompletionStatus(proc_handle, &length, (ULONG_PTR*)unit, &(OVERLAPPED*&)context, INFINITE))
+		if (0 == GetQueuedCompletionStatus(proc_handle, &length, (ULONG_PTR*)unit, &(OVERLAPPED*&)context, INFINITE))
 		{
+			// error
+			int32 err = GetLastError();
 			continue;
 		}
 
@@ -128,6 +171,18 @@ void CIOManager::Process_Run()
 		{
 
 		}
+	}
+
+	return;
+}
+
+void CIOManager::Process_Stop()
+{
+	proc_run = false;
+
+	for (auto& worker : proc_workers)
+	{
+		worker.join();
 	}
 }
 
@@ -176,7 +231,7 @@ bool CRIOManager::Init_Manager()
 
 	// Process Worker
 	for (int i = 0; i < 1; i++)
-		process_workers.emplace_back(std::thread([this]() { this->Process_Run(); }));
+		proc_workers.emplace_back(std::thread([this]() { this->Process_Run(); }));
 
 	return true;
 }
@@ -221,22 +276,34 @@ void CRIOManager::IO_Run(int index)
 			}
 			else
 			{
-
+				// error
 			}
+
+			// Ref Count?
 		}
 	}
 
 	return;
 }
 
-void CRIOManager::OnAccept(SOCKET socket)
-{
-	
-}
-
 CIOUnit* CRIOManager::AllocUnit(SOCKET socket)
 {
-	return nullptr;
+	// 나중엔 비어있다면 재할당
+	if (free_units.empty())
+	{
+		return nullptr;
+	}
+
+	CIOUnit* unit = free_units.front();
+	free_units.pop_front();
+
+	if (unit == nullptr)
+	{
+		// error
+		return nullptr;
+	}
+
+	return unit;
 }
 
 bool CRIOManager::Init_RIO_Table()
@@ -311,20 +378,6 @@ void CIOCPManager::IO_Run(int index)
 	return;
 }
 
-void CIOCPManager::OnAccept(SOCKET socket)
-{
-	CLock lock(unit_lock);
-
-	CIOUnit* unit = AllocUnit(socket);
-	if (unit == nullptr)
-	{
-		closesocket(socket);
-		return;
-	}
-
-
-}
-
 CIOUnit* CIOCPManager::AllocUnit(SOCKET socket)
 {
 
@@ -364,8 +417,4 @@ void CIOCPManager_Ex::IO_Run(int index)
 	}
 
 	return;
-}
-
-void CIOCPManager_Ex::OnAccept(SOCKET socket)
-{
 }

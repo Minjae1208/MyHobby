@@ -14,18 +14,20 @@ protected:
 	CContext* proc = nullptr;
 
 public:
-	CIOModel(CIOUnit* pUnit) { unit = pUnit; };
+	CIOModel(CIOUnit* pUnit);
 	virtual ~CIOModel() {};
 
 public:
 	// @brief **** 설명 추가하기
-	virtual bool Create()	{ return false; };
+	virtual bool Create() = 0;
 	// @brief **** 설명 추가하기
-	virtual bool Accept()	{ return false; };
+	//virtual bool Accept() = 0;
 	// @brief **** 설명 추가하기
-	virtual bool Recv()		{ return false; };
+	virtual bool Recv()	  = 0;
 	// @brief **** 설명 추가하기
-	virtual bool Send()		{ return false; };
+	virtual bool Send()	  = 0;
+
+	bool Proc();
 };
 
 // @brief **** 설명 추가하기
@@ -77,6 +79,7 @@ public:
 	virtual ~CIOCPModel_Ex();
 
 public:
+	virtual bool Create() { return false; };
 	virtual bool Recv();
 	virtual bool Send();
 };

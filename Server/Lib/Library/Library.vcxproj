@@ -128,6 +128,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Lib\$(ProjectName)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -145,6 +146,7 @@
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)\Lib\$(ProjectName)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -157,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="Buffer\Buffer.h" />
     <ClInclude Include="Buffer\BufferManager.h" />
+    <ClInclude Include="Buffer\RingBuffer.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="Network\Context.h" />
@@ -174,6 +177,7 @@
   <ItemGroup>
     <ClCompile Include="Buffer\Buffer.cpp" />
     <ClCompile Include="Buffer\BufferManager.cpp" />
+    <ClCompile Include="Buffer\RingBuffer.cpp" />
     <ClCompile Include="Network\IOManager.cpp" />
     <ClCompile Include="Network\IOModel.cpp" />
     <ClCompile Include="Network\IOUnit.cpp" />
