@@ -16,6 +16,7 @@
 #include <thread>
 #include <mutex>
 
+#include "NetWork/NetWork.h"
 //#include "NetWork/IOManager.h"
 #include "NetWork/NetPeer.h"
 #include "NetWork/IOModel.h"

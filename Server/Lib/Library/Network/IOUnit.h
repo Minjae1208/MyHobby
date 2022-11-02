@@ -42,8 +42,8 @@ protected:
 	std::mutex read_lock;
 	// @brief Send시 걸어둘 lock
 	std::mutex send_lock;
-	// @brief Recv시 걸어둘 lock
-	std::mutex recv_lock;
+	// @brief 
+	std::mutex work_lock;
 
 public:
 	CIOUnit(CIOManager* manager, uint32 num);
@@ -67,7 +67,7 @@ protected:
 	bool CheckBuffer(int32& len);
 	bool ReadRecv(const int32 len);
 	bool ReadProc(char* pData, int32& len);
-
+	void OnWork(char* pData, int32 len);
 };
 
 

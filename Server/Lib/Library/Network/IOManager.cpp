@@ -127,6 +127,9 @@ void CIOManager::OnAccept(SOCKET socket)
 	unit->SetRecv();
 
 	conn_units.insert({ unit->GetID(), unit });
+
+
+	printf_s("success Accept!\n");
 }
 
 void CIOManager::IO_Stop()
@@ -221,6 +224,8 @@ bool CRIOManager::Init_Manager()
 	}
 
 	// Init Unit
+	free_units.push_back(new CIOUnit_RIO(this, 0));
+
 
 	// Accept Worker
 	accept_worker = std::thread([this]() { this->Accepter_Run(); });

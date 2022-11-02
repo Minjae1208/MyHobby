@@ -57,7 +57,7 @@ void CIOUnit::ProcWork()
 
 	while (false != ReadProc(proc, len))
 	{
-		// 실제 처리 하기!
+		OnWork(proc, len);
 	}
 
 	model->Proc();
@@ -117,6 +117,11 @@ bool CIOUnit::ReadProc(char* pData, int32& len)
 		return false;
 
 	return proc_buffer->ReadData(pData, len);
+}
+
+void CIOUnit::OnWork(char* pData, int32 len)
+{
+
 }
 
 // ===========================================================================================

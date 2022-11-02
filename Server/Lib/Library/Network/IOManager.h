@@ -57,7 +57,7 @@ public:
 
 
 	// @brief 
-	virtual void IO_Run(int index) {};
+	virtual void IO_Run(int index) = 0;
 	// @brief
 	void IO_Stop();
 

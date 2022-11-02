@@ -23,8 +23,8 @@ bool CNetWork::Start()
 	//else		// error
 
 	//// 네트워크 세팅
-	//if (io_manager->Init_Manager() == false)
-	//	return false;
+	if (io_manager->Init_Manager() == false)
+		return false;
 
 	//// Set Accepter Thread
 	//accepter = std::thread([this]() { this->io_manager->Accepter_Run(); });

@@ -12,8 +12,6 @@
 
 
 
-//#include "../Tool/Singleton.h"
-
 
 namespace RIO_set
 {
