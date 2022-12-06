@@ -46,8 +46,7 @@ public:
 	HANDLE GetProcHandle() { return proc_handle; }
 
 	// @brief
-	virtual bool Init_Manager();
-
+	virtual bool Init_Manager(CreateNetPeerFunc func, uint16 cnt);
 
 	// @brief RIO 및 IOCP-Accept 에서 사용 | IOCP-AcceptEx는 사용안함
 	virtual void Accepter_Run();
@@ -88,7 +87,7 @@ public:
 	virtual ~CRIOManager();
 
 public:
-	virtual bool Init_Manager();
+	virtual bool Init_Manager(CreateNetPeerFunc func, uint16 cnt);
 	virtual void IO_Run(int index);
 	// @brief 
 	virtual CIOUnit* AllocUnit(SOCKET socket);
@@ -113,7 +112,7 @@ public:
 	virtual ~CIOCPManager();
 
 public:
-	virtual bool Init_Manager();
+	virtual bool Init_Manager(CreateNetPeerFunc func, uint16 cnt);
 	virtual void IO_Run(int index);
 	// @brief 
 	virtual CIOUnit* AllocUnit(SOCKET socket);
@@ -130,7 +129,7 @@ public:
 	virtual ~CIOCPManager_Ex();
 
 public:
-	virtual bool Init_Manager();
+	virtual bool Init_Manager(CreateNetPeerFunc func, uint16 cnt);
 	// @brief AccpetEx만 Accepter Thread를 사용하지 않기 때문에 빈 함수로 세팅
 	virtual void Accepter_Run() {};
 

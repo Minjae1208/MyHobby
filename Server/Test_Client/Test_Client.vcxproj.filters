@@ -9,5 +9,13 @@
     <ClCompile Include="main.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h">
+      <Filter>main</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

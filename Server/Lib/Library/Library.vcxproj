@@ -129,6 +129,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)\Lib\$(ProjectName)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -147,6 +148,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <AdditionalIncludeDirectories>$(SolutionDir)\Lib\$(ProjectName)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -157,11 +159,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Basic\Enum\Enum.h" />
+    <ClInclude Include="Basic\Packet\C2S_Packet.h" />
+    <ClInclude Include="Basic\Packet\S2C_Packet.h" />
     <ClInclude Include="Buffer\Buffer.h" />
     <ClInclude Include="Buffer\BufferManager.h" />
     <ClInclude Include="Buffer\RingBuffer.h" />
     <ClInclude Include="Common.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="ini\ini.h" />
     <ClInclude Include="Network\Context.h" />
     <ClInclude Include="Network\IOManager.h" />
     <ClInclude Include="Network\IOModel.h" />
@@ -169,15 +175,19 @@
     <ClInclude Include="Network\NetWork.h" />
     <ClInclude Include="Network\NetPeer.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="Tool\Date.h" />
+    <ClInclude Include="Tool\ini_reader.h" />
     <ClInclude Include="Tool\Lock.h" />
     <ClInclude Include="Tool\Singleton.h" />
     <ClInclude Include="Tool\Stream.h" />
+    <ClInclude Include="Tool\StringUtil.h" />
     <ClInclude Include="Tool\Type.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Buffer\Buffer.cpp" />
     <ClCompile Include="Buffer\BufferManager.cpp" />
     <ClCompile Include="Buffer\RingBuffer.cpp" />
+    <ClCompile Include="ini\ini.cpp" />
     <ClCompile Include="Network\IOManager.cpp" />
     <ClCompile Include="Network\IOModel.cpp" />
     <ClCompile Include="Network\IOUnit.cpp" />

@@ -20,7 +20,7 @@ CIOManager::~CIOManager()
 	CloseHandle(io_handle);
 }
 
-bool CIOManager::Init_Manager()
+bool CIOManager::Init_Manager(CreateNetPeerFunc func, uint16 cnt)
 {
 	accept_run = io_run = proc_run = true;
 
@@ -200,9 +200,9 @@ CRIOManager::~CRIOManager()
 {
 }
 
-bool CRIOManager::Init_Manager()
+bool CRIOManager::Init_Manager(CreateNetPeerFunc func, uint16 cnt)
 {
-	if (CIOManager::Init_Manager() == false)
+	if (CIOManager::Init_Manager(func, cnt) == false)
 	{
 		// error
 		return false;
@@ -224,8 +224,8 @@ bool CRIOManager::Init_Manager()
 	}
 
 	// Init Unit
-	free_units.push_back(new CIOUnit_RIO(this, 0));
-
+	
+	free_units.push_back(new CIOUnit_RIO(this, 0, func()));
 
 	// Accept Worker
 	accept_worker = std::thread([this]() { this->Accepter_Run(); });
@@ -362,9 +362,9 @@ CIOCPManager::~CIOCPManager()
 
 }
 
-bool CIOCPManager::Init_Manager()
+bool CIOCPManager::Init_Manager(CreateNetPeerFunc func, uint16 cnt)
 {
-	if (CIOManager::Init_Manager() == false)
+	if (CIOManager::Init_Manager(func, cnt) == false)
 	{
 		// error
 		return false;
@@ -403,9 +403,9 @@ CIOCPManager_Ex::~CIOCPManager_Ex()
 {
 }
 
-bool CIOCPManager_Ex::Init_Manager()
+bool CIOCPManager_Ex::Init_Manager(CreateNetPeerFunc func, uint16 cnt)
 {
-	if (CIOManager::Init_Manager() == false)
+	if (CIOManager::Init_Manager(func, cnt) == false)
 	{
 		// error
 		return false;

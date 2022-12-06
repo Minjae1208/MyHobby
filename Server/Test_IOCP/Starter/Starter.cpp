@@ -13,6 +13,6 @@ CStarter::~CStarter()
 void CStarter::Start()
 {
 
-	CNetWork* net = new CNetWork();
-	net->Start();
+	//CNetWork* net = new CNetWork();
+	//net->Start();
 }

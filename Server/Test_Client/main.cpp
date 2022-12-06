@@ -1,9 +1,4 @@
-#pragma comment(lib,"ws2_32.lib")
-#pragma comment(lib,"mswsock.lib")
-
-#include "winsock2.h"
-#include "mswsock.h"
-#include "ws2tcpip.h"
+#include "pch.h"
 
 
 int main()
@@ -33,7 +28,27 @@ int main()
 		}
 	}
 
-	while (true) {}
+	C2S_Test test;
+	test.v1 = 10;
+	test.v2 = 20;
+	test.v3 = 30;
+	test.v4 = 40;
+
+	SStream::Shared stream = std::make_shared<SStream>();
+	stream->SetTag((uint16)EPacketTag::TEST);
+	stream->WriteData((uint8*)&test, sizeof(C2S_Test));
+
+	bool res = send(listen_socket, (const char*)stream->GetData(), stream->GetSize(), 0);
+	if (res == SOCKET_ERROR)
+	{
+		int i = 0;
+	}
+
+
+	while (true) 
+	{
+		
+	}
 
 	WSACleanup();
 

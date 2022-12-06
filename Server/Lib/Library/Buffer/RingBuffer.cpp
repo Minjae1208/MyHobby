@@ -29,8 +29,8 @@ bool CRingBuffer::ReadData(char* pData, size_t len)
 	}
 	else
 	{
-		int32 first_pos = size - read_pos;
-		int32 second_pos = len - first_pos;
+		int32 first_pos = (int32)size - read_pos;
+		int32 second_pos = (int32)len - first_pos;
 
 		memcpy(pData, buffer + read_pos, first_pos);
 		if (second_pos > 0)
@@ -38,7 +38,7 @@ bool CRingBuffer::ReadData(char* pData, size_t len)
 	}
 
 	// Read Position Setting
-	read_pos = (read_pos + len) % size;
+	read_pos = (read_pos + len) % (int32)size;
 
 	return true;
 }
@@ -50,8 +50,8 @@ bool CRingBuffer::WriteData(char* pData, size_t len)
 		
 	if (len + write_pos >= size)
 	{
-		int32 first_pos = size - write_pos;
-		int32 second_pos = len - first_pos;
+		int32 first_pos = (int32)size - write_pos;
+		int32 second_pos = (int32)len - first_pos;
 
 		memcpy(buffer + write_pos, pData, first_pos);
 		if (second_pos > 0)
@@ -72,6 +72,6 @@ int32 CRingBuffer::GetLength()
 {
 	int32 len = write_pos - read_pos;
 	if (len < 0)
-		len = size + len;
+		len = (int32)size + len;
 	return len;
 }

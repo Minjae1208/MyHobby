@@ -16,6 +16,27 @@
     <Filter Include="DB">
       <UniqueIdentifier>{5b04ad30-5006-4836-8f3f-180ce3bb7525}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Task">
+      <UniqueIdentifier>{b58872d2-f7e5-4646-9b0b-145ad312c384}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ini">
+      <UniqueIdentifier>{62dc59e2-2314-43ca-8f85-9610b66a1c4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Basic">
+      <UniqueIdentifier>{dfbee6ec-1a2c-4ae8-b312-782aaa8397fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Basic\Data">
+      <UniqueIdentifier>{e49cafa6-d7e7-4a99-bb0b-88b1e852ef61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Basic\Enum">
+      <UniqueIdentifier>{37a0118b-f377-4641-bcde-31a9b8c40560}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Basic\Packet">
+      <UniqueIdentifier>{5768cc54-f5f9-4381-9934-a37b6253e8a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Basic\Struct">
+      <UniqueIdentifier>{78e3776b-9c0a-4410-836c-82bd6b6f8d2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -66,6 +87,27 @@
     <ClInclude Include="Buffer\RingBuffer.h">
       <Filter>Buffer</Filter>
     </ClInclude>
+    <ClInclude Include="Tool\Date.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="ini\ini.h">
+      <Filter>ini</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool\ini_reader.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Tool\StringUtil.h">
+      <Filter>Tool</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic\Enum\Enum.h">
+      <Filter>Basic\Enum</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic\Packet\S2C_Packet.h">
+      <Filter>Basic\Packet</Filter>
+    </ClInclude>
+    <ClInclude Include="Basic\Packet\C2S_Packet.h">
+      <Filter>Basic\Packet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp">
@@ -94,6 +136,9 @@
     </ClCompile>
     <ClCompile Include="Buffer\RingBuffer.cpp">
       <Filter>Buffer</Filter>
+    </ClCompile>
+    <ClCompile Include="ini\ini.cpp">
+      <Filter>ini</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

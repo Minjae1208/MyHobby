@@ -4,12 +4,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.32228.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_IOCP", "Test_IOCP\Test_IOCP.vcxproj", "{7747A9BE-3DF8-40EA-B79A-65079C711369}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756} = {B5CA4663-DC11-470E-8D81-6B4CA5FCF756}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Lib", "Lib", "{9A10ADA7-377A-4EA9-9FC1-35E443C9D63F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Test_Client", "Test_Client\Test_Client.vcxproj", "{698433A5-E4EE-4535-8CE3-E36BDC680DF8}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game_Server", "Game_Server\Game_Server.vcxproj", "{00342651-410A-44FB-9A08-A910ECC8448F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Game\Game.vcxproj", "{00342651-410A-44FB-9A08-A910ECC8448F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B5CA4663-DC11-470E-8D81-6B4CA5FCF756} = {B5CA4663-DC11-470E-8D81-6B4CA5FCF756}
 	EndProjectSection

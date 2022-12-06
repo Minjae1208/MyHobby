@@ -34,29 +34,6 @@ public:
 	}
 
 	Header* header = nullptr;
-
-};
-
-class CDBHeader
-{
-public:
-#pragma pack(1)
-	struct Header
-	{
-		Header()
-		{
-			size = sizeof(Header);
-			tag = 0;
-			uid = 0;
-			res = 0;
-		}
-
-		uint16 size;
-		uint16 tag;
-		uint64 uid;
-		uint8 res;
-	};
-#pragma pack()
 };
 
 template<typename T>
@@ -69,7 +46,11 @@ public:
 public:
 	CStream(uint16 InSize = _default)
 	{
-
+		Clear();
+		_buffer.reserve(InSize);
+		typename T::Header h;
+		Write((uint8*)&h, sizeof(T::Header), false);
+		_read = _header.init(_buffer.data());
 	}
 
 	CStream(uint8* pInData, uint16 InSize)
@@ -77,8 +58,8 @@ public:
 		if (pInData != nullptr)
 		{
 			Clear();
-			//Write(pInData[i], InSize, false);
-			_read = _header->init(_buffer.data());
+			Write(pInData, InSize, false);
+			_read = _header.init(_buffer.data());
 		}
 	}
 
@@ -96,79 +77,107 @@ public:
 // ===============================================
 // Header
 // ===============================================
-	void SetSize(uint16 InSize) { _header->size = InSize; }
-	uint16 GetSize() { return _header->size; }
+	void SetSize(uint16 InSize) { _header.header->size = InSize; }
+	uint16 GetSize() { return _header.header->size; }
 
-	void SetTag(uint16 InTag) { _header->tag = InTag; }
-	uint16 GetTag() { return _header->tag; }
+	void SetTag(uint16 InTag) { _header.header->tag = InTag; }
+	uint16 GetTag() { return _header.header->tag; }
 
-	void SetUid(uint64 InUid) { _header->uid = InUid; }
-	uint64 GetUid() { return _header->uid; }
+	void SetUid(uint64 InUid) { _header.header->uid = InUid; }
+	uint64 GetUid() { return _header.header->uid; }
 
-	void SetRes(uint8 InRes) { _header->res = InRes; }
-	uint8 GetRes() { return _header->res; }
+	void SetRes(uint8 InRes) { _header.header->res = InRes; }
+	uint8 GetRes() { return _header.header->res; }
 
 
 // ===============================================
 // Write
 // ===============================================
-	void Write(uint8 InData, int16 InLen, bool InAdd)
+	void Write(uint8* pInData, int16 InLen, bool adder = true)
 	{
 		for (int16 i = 0; i < InLen; i++)
-			Write(InData, InAdd);
+			Write(pInData[i], adder);
 	}
 
-	void Write(uint8 InData, bool InAdd)
+	template<typename P>
+	void Write(P InData, bool adder = true)
 	{
-		uint16 len = (uint16)sizeof(InData);
+		uint16 len = sizeof(InData);
 		if (_buffer.size() < _write + len)
 			_buffer.resize(_write + len);
+		
 		memcpy(&_buffer[_write], (uint8*)&InData, len);
 		_write += len;
-		if(InAdd)
+		if(adder)
 			SetSize(_write);
 	}
 
 // ===============================================
 // Read
 // ===============================================
-	template<typename T>
-	T Read()
+	template<typename R>
+	R Read()
 	{
-		T data = Read(_read);
-		_read += sizeof(T);
+		R data = Read<R>(_read);
+		_read += sizeof(R);
 		return data;
 	}
 
-	T Read(uint16 InIndex)
+	template<typename R>
+	R Read(uint16 InIndex)
 	{
-		T data;
-		if (InIndex + sizeof(T) <= _buffer.size())
+		R data;
+		if (InIndex + sizeof(R) <= _buffer.size())
 		{
-			memcpy(&data, (uint8*)&_buffer[InIndex], sizeof(T));
+			memcpy(&data, (uint8*)&_buffer[InIndex], sizeof(R));
 			return data;
 		}
 		return 0;
 	}
 
 // ===============================================
+// Buffer
+// ===============================================
+	void CopyData(uint8* pInData, uint16 InSize)
+	{
+		if (pInData != nullptr)
+		{
+			_buffer.resize(InSize);
+			_read = _header.init(&_buffer[0]);
+			Write(pInData, InSize);
+		}
+	}
+
+	uint8* GetData()
+	{
+		return &_buffer[0];
+	}
+
+// ===============================================
 // Stream
 // ===============================================
-	void WriteBuffer(uint8* InBuffer, uint16 InSize)
+	void WriteData(uint8* pInData, uint16 InSize, bool adder = true)
 	{
 		// Setting Write Size
-		Write(InSize, true);
+		Write(InSize, adder);
 		// Write Data
-		Write(InBuffer, InSize, true);
+		Write(pInData, InSize, adder);
 	}
-	void ReadBuffer(uint8* InBuffer)
+
+	template<typename P>
+	void WriteValue(P value) { Write(value); }
+
+	void ReadData(uint8* pInData)
 	{
 		// Setting Read Size
-		//uint16 size = read<uint16>();
+		uint16 size = Read<uint16>();
 		// Copy By size
-		//memcpy(InBuffer, &_buffer[_read], size);
-		//_read += size;
+		memcpy(pInData, &_buffer[_read], size);
+		_read += size;
 	}
+
+	template<typename R>
+	void ReadValue(R& value) { value = Read<R>(); }
 
 private:
 	static const uint16 _default = 4096;
@@ -179,5 +188,4 @@ private:
 	std::vector<uint8> _buffer;
 };
 
-typedef CStream<CServerHeader> ServerStream;
-typedef CStream<CDBHeader> DBStream;
+typedef CStream<CServerHeader> SStream;

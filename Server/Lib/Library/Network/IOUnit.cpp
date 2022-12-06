@@ -10,10 +10,9 @@
 //										Unit Interface
 // ===========================================================================================
 
-CIOUnit::CIOUnit(CIOManager* manager, uint32 num) : id(num)
+CIOUnit::CIOUnit(CIOManager* manager, uint32 num, std::shared_ptr<CNetPeer> netpeer) : id(num), peer(netpeer)
 {
 	io_manager = manager;
-	
 	
 	char* recv_ = CBufferManager::Instance()->Get(16384);
 	char* send_ = CBufferManager::Instance()->Get(16384);
@@ -121,6 +120,15 @@ bool CIOUnit::ReadProc(char* pData, int32& len)
 
 void CIOUnit::OnWork(char* pData, int32 len)
 {
+	SStream::Shared stream = std::make_shared<SStream>();
+	stream->CopyData((uint8*)pData, len);
+
+	if (stream->GetTag() == (uint16)EPacketTag::TEST)
+	{
+		int i = 0;
+	}
+
+	//peer->OnWorking(stream);
 
 }
 
@@ -128,7 +136,7 @@ void CIOUnit::OnWork(char* pData, int32 len)
 //										RIO Unit
 // ===========================================================================================
 
-CIOUnit_RIO::CIOUnit_RIO(CIOManager* manager, uint32 num) : CIOUnit(manager, num)
+CIOUnit_RIO::CIOUnit_RIO(CIOManager* manager, uint32 num, std::shared_ptr<CNetPeer> netpeer) : CIOUnit(manager, num, netpeer)
 {
 	model = std::make_unique<CRIOModel>(this, (CRIOManager*)io_manager);
 

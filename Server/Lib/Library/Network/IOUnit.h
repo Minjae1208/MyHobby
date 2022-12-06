@@ -46,7 +46,7 @@ protected:
 	std::mutex work_lock;
 
 public:
-	CIOUnit(CIOManager* manager, uint32 num);
+	CIOUnit(CIOManager* manager, uint32 num, std::shared_ptr<CNetPeer> netpeer);
 	virtual ~CIOUnit();
 
 public:
@@ -76,7 +76,7 @@ class CIOUnit_RIO : public CIOUnit
 private:
 
 public:
-	CIOUnit_RIO(CIOManager* manager, uint32 num);
+	CIOUnit_RIO(CIOManager* manager, uint32 num, std::shared_ptr<CNetPeer> netpeer);
 	virtual ~CIOUnit_RIO();
 
 	virtual void IORecvWork(const int32 len);
@@ -87,7 +87,7 @@ class CIOUnit_IOCP : public CIOUnit
 {
 
 public:
-	CIOUnit_IOCP(CIOManager* manager, uint32 num);
+	CIOUnit_IOCP(CIOManager* manager, uint32 num, std::shared_ptr<CNetPeer> netpeer);
 	virtual ~CIOUnit_IOCP();
 
 };
@@ -97,6 +97,6 @@ class CIOUnit_IOCPEx : public CIOUnit
 
 
 public:
-	CIOUnit_IOCPEx(CIOManager* manager, uint32 num);
+	CIOUnit_IOCPEx(CIOManager* manager, uint32 num, std::shared_ptr<CNetPeer> netpeer);
 	virtual ~CIOUnit_IOCPEx();
 };

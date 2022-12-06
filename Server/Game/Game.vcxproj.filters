@@ -21,9 +21,6 @@
     <ClInclude Include="framework.h">
       <Filter>Common</Filter>
     </ClInclude>
-    <ClInclude Include="Game_Server.h">
-      <Filter>Common</Filter>
-    </ClInclude>
     <ClInclude Include="Resource.h">
       <Filter>Common</Filter>
     </ClInclude>
@@ -39,9 +36,15 @@
     <ClInclude Include="Network\Peer.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="Account\AccountManager.h">
+      <Filter>Account</Filter>
+    </ClInclude>
+    <ClInclude Include="Account\Account.h">
+      <Filter>Account</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Game_Server.ico">
+    <Image Include="Game.ico">
       <Filter>Common</Filter>
     </Image>
     <Image Include="small.ico">
@@ -49,7 +52,7 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Game_Server.cpp">
+    <ClCompile Include="main.cpp">
       <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
@@ -61,9 +64,15 @@
     <ClCompile Include="Network\Peer.cpp">
       <Filter>Network</Filter>
     </ClCompile>
+    <ClCompile Include="Account\AccountManager.cpp">
+      <Filter>Account</Filter>
+    </ClCompile>
+    <ClCompile Include="Account\Account.cpp">
+      <Filter>Account</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Game_Server.rc">
+    <ResourceCompile Include="Game.rc">
       <Filter>Common</Filter>
     </ResourceCompile>
   </ItemGroup>
